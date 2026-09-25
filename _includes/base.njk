@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title or "Scholars Planet — Opening the doors to endless possibilities" }}</title>
+<meta name="description" content="{{ description or 'Scholars Planet is a curated feed of scholarships, grants and fellowship opportunities for students, updated regularly.' }}">
+<link rel="canonical" href="https://scholarsplanet.com.ng{{ page.url }}">
+<meta property="og:title" content="{{ title or 'Scholars Planet' }}">
+<meta property="og:description" content="{{ description or 'Opening the doors to endless possibilities — curated scholarships, grants and fellowships.' }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://scholarsplanet.com.ng{{ page.url }}">
+<meta property="og:image" content="https://scholarsplanet.com.ng/assets/img/logo-full.png">
+<link rel="icon" href="/assets/img/logo-mono.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <img src="/assets/img/logo-mono.png" alt="Scholars Planet logo">
+      Scholars Planet
+    </a>
+    <nav class="nav">
+      <a href="/" class="{{ 'current' if page.url == '/' }}">Opportunities</a>
+      <a href="/about/" class="{{ 'current' if page.url == '/about/' }}">About</a>
+      <a href="/privacy-policy/" class="{{ 'current' if page.url == '/privacy-policy/' }}">Privacy</a>
+      <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join channel</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+{{ content | safe }}
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="fbrand" href="/"><img src="/assets/img/logo-mono.png" alt=""> Scholars Planet</a>
+    <div class="fnav">
+      <a href="/about/">About</a>
+      <a href="/privacy-policy/">Privacy Policy</a>
+      <a href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">WhatsApp Channel</a>
+    </div>
+    <small>&copy; {{ currentYear }} Scholars Planet. Opening the doors to endless possibilities.</small>
+  </div>
+</footer>
+
+</body>
+</html>

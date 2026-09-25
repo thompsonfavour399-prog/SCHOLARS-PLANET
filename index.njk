@@ -1,0 +1,124 @@
+---
+layout: base.njk
+title: Scholars Planet — Opening the doors to endless possibilities
+description: A live, curated feed of scholarships, grants, fellowships and skills programmes for students — updated regularly by Scholars Planet.
+pagination:
+  data: collections.posts
+  size: 1000
+  alias: allPosts
+---
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Opening the doors to endless possibilities.</h1>
+      <p class="lede">Scholars Planet is a live feed of scholarships, grants, fellowships and free skills programmes — curated so you never miss a deadline again.</p>
+      <div class="hero-cta">
+        <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the WhatsApp channel</a>
+        <a class="btn-outline" href="#feed">Browse opportunities</a>
+      </div>
+    </div>
+    <svg class="door-art" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="40" y="20" width="180" height="280" rx="4" fill="#1B1B3A"/>
+      <rect x="52" y="32" width="156" height="256" rx="2" fill="#2F7D5C" opacity="0.15"/>
+      <path d="M220 20 L300 60 L300 300 L220 300 Z" fill="#E8873A"/>
+      <circle cx="195" cy="165" r="6" fill="#F7F3E9"/>
+      <circle cx="200" cy="220" r="60" fill="#F7F3E9" opacity="0.35"/>
+    </svg>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><b>2,800+</b><span>students reached</span></div>
+    <div class="stat"><b>157+</b><span>scholarship &amp; grant winners</span></div>
+    <div class="stat"><b>2,000+</b><span>enrolled in free skills programmes</span></div>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="wrap">
+    <h2 style="font-size:1.3rem;">Browse by category</h2>
+    <div class="catlist">
+      <a href="#feed" data-filter="scholarship">Scholarships</a>
+      <a href="#feed" data-filter="grant">Grants</a>
+      <a href="#feed" data-filter="fellowship">Fellowships</a>
+      <a href="#feed" data-filter="skills">Skills &amp; Training</a>
+      <a href="#feed" data-filter="internship">Internships</a>
+      <a href="#feed" data-filter="all">All</a>
+    </div>
+  </div>
+</section>
+
+<section class="feed" id="feed">
+  <div class="wrap">
+    <h2>Latest opportunities</h2>
+    <p class="feed-sub">Updated as soon as new opportunities are verified.</p>
+    <div class="feed-list">
+      {%- for post in allPosts %}
+      <div class="feed-row" data-category="{{ post.data.category | lower }}">
+        <div>
+          <div class="ftitle"><a href="{{ post.url }}">{{ post.data.title }}</a></div>
+          <div class="fmeta">{{ post.data.summary }}</div>
+        </div>
+        <div class="ftag">{{ post.data.category }}</div>
+        <div class="fdeadline">
+          {%- set d = post.data.deadline | daysLeft -%}
+          {%- if d != null and d >= 0 -%}
+            {{ d }} day{{ "s" if d != 1 }} left
+          {%- else -%}
+            {{ post.data.deadline | readableDate }}
+          {%- endif -%}
+        </div>
+      </div>
+      {%- else %}
+      <div class="feed-row"><div class="ftitle">New opportunities are added regularly — check back soon, or join the WhatsApp channel to get them first.</div></div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="sdg">
+  <div class="wrap">
+    <h2>Aligned with the UN Sustainable Development Goals</h2>
+    <p style="color:var(--slate);max-width:620px;">Every opportunity we share works toward closing the education access gap for African students.</p>
+    <div class="sdglist">
+      <div class="sdg-badge"><b>SDG 4 — Quality Education</b><span>Widening access to scholarships, grants and skills training so cost is never the reason a student stops learning.</span></div>
+      <div class="sdg-badge"><b>SDG 10 — Reduced Inequalities</b><span>Reaching students who are furthest from reliable information, regardless of background or location.</span></div>
+      <div class="sdg-badge"><b>SDG 8 — Decent Work &amp; Growth</b><span>Free digital skills programmes that open real employment and income pathways.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="wrap">
+    <h2>Why Scholars Planet exists</h2>
+    <p>Scholars Planet started with Samuel — a student who missed a $1,000 scholarship interview because the email announcing it arrived weeks late, and he had no reliable place to check for opportunities in time. Scholars Planet exists so no student misses their chance because the information arrived too late, or never arrived at all.</p>
+  </div>
+</section>
+
+<section class="join">
+  <div class="wrap">
+    <div class="join-left">
+      <h2>Never miss a deadline again</h2>
+      <p>Join the Scholars Planet WhatsApp channel for opportunities as soon as they're verified — before they hit the website.</p>
+      <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the WhatsApp channel</a>
+    </div>
+    <img class="qr" src="/assets/img/whatsapp-qr.png" alt="Scan to join the Scholars Planet WhatsApp channel">
+  </div>
+</section>
+
+<script>
+document.querySelectorAll('.catlist a').forEach(function(link){
+  link.addEventListener('click', function(e){
+    var filter = link.getAttribute('data-filter');
+    if(!filter) return;
+    document.querySelectorAll('.feed-row[data-category]').forEach(function(row){
+      if(filter === 'all' || row.getAttribute('data-category').indexOf(filter) !== -1){
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+});
+</script>

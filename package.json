@@ -1,0 +1,12 @@
+{
+  "name": "scholars-planet-site",
+  "version": "1.0.0",
+  "description": "Scholars Planet - scholarship opportunity feed",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

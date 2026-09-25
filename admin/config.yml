@@ -1,0 +1,27 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: simple
+media_folder: "assets/img/uploads"
+public_folder: "/assets/img/uploads"
+
+collections:
+  - name: "posts"
+    label: "Opportunities"
+    folder: "content/posts"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["Scholarship", "Grant", "Fellowship", "Skills", "Internship"]
+      - { label: "Date posted", name: "date", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Application deadline", name: "deadline", widget: "datetime", format: "YYYY-MM-DD" }
+      - { label: "Short summary (shows in the feed list)", name: "summary", widget: "text" }
+      - { label: "Official application link", name: "link", widget: "string" }
+      - { label: "Cover image", name: "image", widget: "image", required: false }
+      - { label: "Full details", name: "body", widget: "markdown" }
