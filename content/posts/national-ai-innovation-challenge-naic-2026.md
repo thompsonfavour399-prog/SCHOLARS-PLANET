@@ -2,7 +2,7 @@
 title: National AI Innovation Challenge (NAIC) 2026.
 category: Skills
 date: 2026-09-26
-deadline: 2026-09-12
+deadline: 2026-10-12
 summary: "National AI Innovation Challenge (NAIC) 2026 is now open for Nigerian
   students, researchers, startups and developers. Build AI solutions using
   N-ATLAS for a chance to win API credits, compute support and mentorship.
