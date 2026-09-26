@@ -8,6 +8,7 @@ summary: "National AI Innovation Challenge (NAIC) 2026 is now open for Nigerian
   N-ATLAS for a chance to win API credits, compute support and mentorship.
   Deadline: October 12, 2026. Apply now!"
 link: https://ncair.nitda.gov.ng/naic
+image: /assets/img/uploads/img_20260926_104314.jpg
 ---
 **National AI Innovation Challenge (NAIC) 2026.**
 
