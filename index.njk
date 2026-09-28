@@ -8,30 +8,22 @@ pagination:
   alias: allPosts
 ---
 <section class="hero">
-  <div class="wrap">
-    <div>
-      <h1>Opening the doors to endless possibilities.</h1>
-      <p class="lede">Scholars Planet is a live feed of scholarships, grants, fellowships and free skills programmes — curated so you never miss a deadline again.</p>
-      <div class="hero-cta">
-        <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the WhatsApp channel</a>
-        <a class="btn-outline" href="#feed">Browse opportunities</a>
-      </div>
+  <div class="hero-bg"></div>
+  <div class="wrap hero-inner">
+    <h1>Opening the doors to endless possibilities.</h1>
+    <p class="lede">Scholars Planet is a live feed of scholarships, grants, fellowships and free skills programmes — curated so you never miss a deadline again.</p>
+    <div class="hero-cta">
+      <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the WhatsApp channel</a>
+      <a class="btn-outline" href="#feed">Browse opportunities</a>
     </div>
-    <svg class="door-art" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="40" y="20" width="180" height="280" rx="4" fill="#1B1B3A"/>
-      <rect x="52" y="32" width="156" height="256" rx="2" fill="#2F7D5C" opacity="0.15"/>
-      <path d="M220 20 L300 60 L300 300 L220 300 Z" fill="#E8873A"/>
-      <circle cx="195" cy="165" r="6" fill="#F7F3E9"/>
-      <circle cx="200" cy="220" r="60" fill="#F7F3E9" opacity="0.35"/>
-    </svg>
   </div>
 </section>
 
 <section class="stats">
   <div class="wrap">
-    <div class="stat"><b>2,800+</b><span>students reached</span></div>
-    <div class="stat"><b>157+</b><span>scholarship &amp; grant winners</span></div>
-    <div class="stat"><b>2,000+</b><span>enrolled in free skills programmes</span></div>
+    <div class="stat"><b>3,400+</b><span>students reached</span></div>
+    <div class="stat"><b>2,700+</b><span>benefited from scholarships</span></div>
+    <div class="stat"><b>3,000+</b><span>benefited from free digital learning &amp; fellowships</span></div>
   </div>
 </section>
 
@@ -53,25 +45,26 @@ pagination:
   <div class="wrap">
     <h2>Latest opportunities</h2>
     <p class="feed-sub">Updated as soon as new opportunities are verified.</p>
-    <div class="feed-list">
+    <div class="feed-grid">
       {%- for post in allPosts %}
-      <div class="feed-row" data-category="{{ post.data.category | lower }}">
-        <div>
-          <div class="ftitle"><a href="{{ post.url }}">{{ post.data.title }}</a></div>
-          <div class="fmeta">{{ post.data.summary }}</div>
-        </div>
-        <div class="ftag">{{ post.data.category }}</div>
-        <div class="fdeadline">
+      <a class="card" href="{{ post.url }}" data-category="{{ post.data.category | lower }}">
+        <div class="crow">
+          <span class="ftag">{{ post.data.category }}</span>
           {%- set d = post.data.deadline | daysLeft -%}
-          {%- if d != null and d >= 0 -%}
-            {{ d }} day{{ "s" if d != 1 }} left
-          {%- else -%}
-            {{ post.data.deadline | readableDate }}
-          {%- endif -%}
+          <span class="fdeadline">
+            {%- if d != null and d >= 0 -%}
+              {{ d }} day{{ "s" if d != 1 }} left
+            {%- else -%}
+              {{ post.data.deadline | readableDate }}
+            {%- endif -%}
+          </span>
         </div>
-      </div>
+        <div class="ftitle">{{ post.data.title }}</div>
+        <div class="fmeta">{{ post.data.summary }}</div>
+        <div class="fcta">View details</div>
+      </a>
       {%- else %}
-      <div class="feed-row"><div class="ftitle">New opportunities are added regularly — check back soon, or join the WhatsApp channel to get them first.</div></div>
+      <div class="card">New opportunities are added regularly — check back soon, or join the WhatsApp channel to get them first.</div>
       {%- endfor %}
     </div>
   </div>
@@ -100,8 +93,12 @@ pagination:
   <div class="wrap">
     <div class="join-left">
       <h2>Never miss a deadline again</h2>
-      <p>Join the Scholars Planet WhatsApp channel for opportunities as soon as they're verified — before they hit the website.</p>
-      <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the WhatsApp channel</a>
+      <p>Join the Scholars Planet community for opportunities as soon as they're verified — before they hit the website.</p>
+      <div class="join-social">
+        <a class="btn" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the WhatsApp channel</a>
+        <a class="btn-outline" href="https://www.facebook.com/share/1Bh6gVFu4L" target="_blank" rel="noopener">Follow on Facebook</a>
+        <a class="btn-outline" href="https://www.instagram.com/scholarsplanet.ng" target="_blank" rel="noopener">Follow on Instagram</a>
+      </div>
     </div>
     <img class="qr" src="/assets/img/whatsapp-qr.png" alt="Scan to join the Scholars Planet WhatsApp channel">
   </div>
@@ -112,11 +109,11 @@ document.querySelectorAll('.catlist a').forEach(function(link){
   link.addEventListener('click', function(e){
     var filter = link.getAttribute('data-filter');
     if(!filter) return;
-    document.querySelectorAll('.feed-row[data-category]').forEach(function(row){
-      if(filter === 'all' || row.getAttribute('data-category').indexOf(filter) !== -1){
-        row.style.display = '';
+    document.querySelectorAll('.card[data-category]').forEach(function(card){
+      if(filter === 'all' || card.getAttribute('data-category').indexOf(filter) !== -1){
+        card.style.display = '';
       } else {
-        row.style.display = 'none';
+        card.style.display = 'none';
       }
     });
   });

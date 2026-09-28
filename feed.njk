@@ -1,0 +1,23 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Scholars Planet — Latest Opportunities</title>
+  <link>https://scholarsplanet.com.ng/</link>
+  <atom:link href="https://scholarsplanet.com.ng/feed.xml" rel="self" type="application/rss+xml" />
+  <description>Scholarships, grants, fellowships and skills programmes curated by Scholars Planet.</description>
+  <language>en</language>
+{%- for post in collections.posts %}
+  <item>
+    <title>{{ post.data.title }}</title>
+    <link>https://scholarsplanet.com.ng{{ post.url }}</link>
+    <guid isPermaLink="true">https://scholarsplanet.com.ng{{ post.url }}</guid>
+    <pubDate>{{ post.date | rssDate }}</pubDate>
+    <category>{{ post.data.category }}</category>
+    <description>{{ post.data.summary }}</description>
+  </item>
+{%- endfor %}
+</channel>
+</rss>

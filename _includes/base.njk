@@ -10,8 +10,9 @@
 <meta property="og:description" content="{{ description or 'Opening the doors to endless possibilities — curated scholarships, grants and fellowships.' }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://scholarsplanet.com.ng{{ page.url }}">
-<meta property="og:image" content="https://scholarsplanet.com.ng/assets/img/logo-full.png">
+<meta property="og:image" content="https://scholarsplanet.com.ng/assets/img/hero-graduate.jpg">
 <link rel="icon" href="/assets/img/logo-mono.png">
+<link rel="alternate" type="application/rss+xml" title="Scholars Planet — Latest Opportunities" href="/feed.xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -40,11 +41,16 @@
 
 <footer>
   <div class="wrap">
-    <a class="fbrand" href="/"><img src="/assets/img/logo-mono.png" alt=""> Scholars Planet</a>
+    <div>
+      <a class="fbrand" href="/"><img src="/assets/img/logo-mono.png" alt=""> Scholars Planet</a>
+      <div class="fcontact">adminscholarsplanet@gmail.com</div>
+    </div>
     <div class="fnav">
       <a href="/about/">About</a>
       <a href="/privacy-policy/">Privacy Policy</a>
       <a href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">WhatsApp Channel</a>
+      <a href="https://www.facebook.com/share/1Bh6gVFu4L" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/scholarsplanet.ng" target="_blank" rel="noopener">Instagram</a>
     </div>
     <small>&copy; {{ currentYear }} Scholars Planet. Opening the doors to endless possibilities.</small>
   </div>
@@ -61,5 +67,6 @@ if (window.netlifyIdentity) {
     }
   });
 }
-</script></body>
+</script>
+</body>
 </html>

@@ -3,6 +3,7 @@ layout: base.njk
 ---
 <article>
   <div class="post-header">
+    <div class="post-header-bg"></div>
     <div class="wrap">
       <span class="post-tag">{{ category }}</span>
       <h1>{{ title }}</h1>
@@ -14,19 +15,27 @@ layout: base.njk
     </div>
   </div>
   <div class="wrap">
-    <div class="post-body">
-      {%- set d = deadline | daysLeft -%}
-      {%- if d != null and d >= 0 %}
-      <div class="deadline-callout">{{ d }} day{{ "s" if d != 1 }} left to apply — deadline {{ deadline | readableDate }}</div>
-      {%- endif %}
+    <div class="post-layout">
+      <div class="post-body">
+        {%- set d = deadline | daysLeft -%}
+        {%- if d != null and d >= 0 %}
+        <div class="deadline-callout">{{ d }} day{{ "s" if d != 1 }} left to apply — deadline {{ deadline | readableDate }}</div>
+        {%- endif %}
 
-      {{ content | safe }}
+        {{ content | safe }}
 
-      {%- if link %}
-      <div class="apply-cta">
-        <a class="btn" href="{{ link }}" target="_blank" rel="noopener">Apply now</a>
+        {%- if link %}
+        <div class="apply-cta">
+          <a class="btn" href="{{ link }}" target="_blank" rel="noopener">Apply now</a>
+        </div>
+        {%- endif %}
       </div>
-      {%- endif %}
+      <aside class="sidebar-card">
+        <h3>Never miss one again</h3>
+        <p>New opportunities are shared on the WhatsApp channel before they even hit the website.</p>
+        <img class="qr" src="/assets/img/whatsapp-qr.png" alt="Scan to join the Scholars Planet WhatsApp channel">
+        <a class="btn" style="width:100%;text-align:center;" href="https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I" target="_blank" rel="noopener">Join the channel</a>
+      </aside>
     </div>
   </div>
 </article>
