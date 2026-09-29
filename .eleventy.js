@@ -29,7 +29,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("limit", (arr, n) => (arr || []).slice(0, n));
-
+eleventyConfig.addFilter("rssDate", (dateObj) => { if (!dateObj) return ""; return DateTime.fromJSDate(new Date(dateObj), { zone: "utc" }).toRFC2822(); });
   eleventyConfig.addGlobalData("currentYear", () => new Date().getFullYear());
 
   return {
