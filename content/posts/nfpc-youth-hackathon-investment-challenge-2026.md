@@ -11,6 +11,7 @@ summary: >+
   Deadline: Oct 15, 2026. Apply via NFPC platform.
 
 link: https://www.nfpc2026.org/youth-scholarship
+image: /assets/img/uploads/251932.jpg
 ---
 **NFPC YOUTH HACKATHON & INVESTMENT CHALLENGE 2026**
 
