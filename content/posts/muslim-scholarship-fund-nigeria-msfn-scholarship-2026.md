@@ -3,7 +3,11 @@ title: Muslim Scholarship Fund Nigeria (MSFN) Scholarship 2026
 category: Scholarship
 date: 2026-10-02
 deadline: 2026-10-07
-summary: Aaaa
+summary: "Muslim Scholarship Fund Nigeria (MSFN) Scholarship 2026 is now open
+  for Muslim students in public secondary schools and tertiary institutions from
+  Edo, Ekiti, Kogi, Kwara, Lagos, Ogun, Ondo, Osun and Oyo states. Get
+  ₦120,000/year for undergraduates and ₦40,000/year for secondary students.
+  Deadline: October 7, 2026. Apply now!"
 link: https://msfnonline.org/portal/public/signin
 image: /assets/img/uploads/screenshot_2026-10-02-12-04-54-84.jpg
 ---
