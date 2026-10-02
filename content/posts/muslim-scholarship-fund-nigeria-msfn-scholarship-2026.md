@@ -11,7 +11,6 @@ summary: "Muslim Scholarship Fund Nigeria (MSFN) Scholarship 2026 is now open
 link: https://msfnonline.org/portal/public/signin
 image: /assets/img/uploads/screenshot_2026-10-02-12-04-54-84.jpg
 ---
-
 **Organizer**: Muslim Scholarship Fund Nigeria (MSFN)
 
 **Who Can Apply?**
@@ -24,9 +23,13 @@ Be an active member of an Islamic organisation, such as the Muslim Students' Soc
 Have credit passes in at least five subjects, including English Language and Mathematics
 Come from a low-income family
 
-**Membership of MSSN is not compulsory, but participation in community activities is considered during selection.
 
-How To Apply:**
+
+Membership of MSSN is not compulsory, but participation in community activities is considered during selection.
+
+
+
+**How To Apply:**
 
 Visit the MSFN application portal
 Create an account (or sign in if you already have one)
@@ -46,8 +49,8 @@ Amounts may be reviewed annually depending on economic conditions.
 **Application Deadline:** 7 October 2026
 
 **Application link:** <https://msfnonline.org/portal/public/signin
->
-**Need more opportunities?**
+
+> **Need more opportunities?**
 
 Explore more scholarships, grants, competitions, fellowships and other opportunities for students through Scholars Planet.
 
