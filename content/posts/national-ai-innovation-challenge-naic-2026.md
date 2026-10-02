@@ -10,8 +10,6 @@ summary: "National AI Innovation Challenge (NAIC) 2026 is now open for Nigerian
 link: https://ncair.nitda.gov.ng/naic
 image: /assets/img/uploads/img_20260926_104314.jpg
 ---
-**National AI Innovation Challenge (NAIC) 2026.**
-
 **Organizer:** National Centre for Artificial Intelligence and Robotics (NCAIR), through the Office for Nigerian Digital Innovation (ONDI), under the Federal Ministry of Communications, Innovation and Digital Economy, in partnership with Awarri Technologies.
 
 **Who Can Apply?**
