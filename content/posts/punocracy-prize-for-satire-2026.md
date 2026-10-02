@@ -9,15 +9,12 @@ summary: >+
 
 
   Prizes: ₦500,000, ₦200,000 and ₦150,000 for the top three entries.
-
    A great opportunity for young writers to showcase their creativity and win cash prizes.
 
 
 link: https://punocracy.com/prize/
 image: /assets/img/uploads/251755.jpg
 ---
-
-
 ![](/assets/img/uploads/251755.jpg)
 
 PUNOCRACY PRIZE FOR SATIRE 2026
@@ -60,7 +57,7 @@ Submit your entry through the official Punocracy Prize platform.
 
 **APPLICATION LINK**:
 
-https://punocracy.com/prize/
+<https://punocracy.com/prize/>
 
 If you have a sharp pen, a creative mind and a story worth telling, this is an opportunity to put your writing to work.
 
@@ -70,19 +67,19 @@ Please don't forget to share, follow our channel and join our group discussions 
 
 GROUP LINK 1️⃣
 
-https://chat.whatsapp.com/L4jHXWmcQ678lk3YHGTYRt
+<https://chat.whatsapp.com/L4jHXWmcQ678lk3YHGTYRt>
 
 GROUP LINK 2️⃣
 
-https://chat.whatsapp.com/GsiQeAN1OAp70UXEVYhPAt
+<https://chat.whatsapp.com/GsiQeAN1OAp70UXEVYhPAt>
 
 GROUP LINK  3️⃣
 
-https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE
+<https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE>
 
 CHANNEL LINK
 
-https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I
+<https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I>
 
 ©️SCHOLARS PLANET
 
