@@ -78,12 +78,4 @@ CHANNEL LINK
 
 ©️ Scholars Planet 
 
-*Opening Doors To Endless Possibilities* 
-
-![](/assets/img/uploads/251932.jpg)
-
-![]()
-
-©️ SCHOLARS PLANET
-
-Opening doors to endless possibilities
+*Opening Doors To Endless Possibilities*
