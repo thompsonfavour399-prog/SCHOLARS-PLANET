@@ -11,11 +11,7 @@ summary: "Carewave Aspire Scholarship Programme (CASP) 2026 is now open for
   https://carewavefoundation.org/scholarships/SCH-2026-946543"
 link: " https://carewavefoundation.org/scholarships/SCH-2026-946543"
 ---
-
-
 ![](/assets/img/uploads/screenshot_2026-10-02-12-04-39-16.jpg)
-
-
 
 **Organizer:** Carewave Foundation
 
@@ -82,7 +78,7 @@ WhatsApp Group 3:<https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE>
 
 WhatsApp Channel: <https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I>
 
-Website: [www.scholarsplanet.com.ng](www.scholarsplanet.com.ng)
+Website:[ https://www.scholarsplanet.com.ng/](< https://www.scholarsplanet.com.ng/>)
 
 ©️Scholars Planet
 
