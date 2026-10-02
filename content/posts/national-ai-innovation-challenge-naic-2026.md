@@ -44,7 +44,7 @@ WhatsApp Group 2: <https://chat.whatsapp.com/GsiQeAN1OAp70UXEVYhPAt>
 
 WhatsApp Channel: <https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I>
 
-Website: [www.scholarsplanet.com.ng](www.scholarsplanet.com.ng)
+Website: [ https://www.scholarsplanet.com.ng/](< https://www.scholarsplanet.com.ng/>)
 
 ©**️Scholars Planet**
 
