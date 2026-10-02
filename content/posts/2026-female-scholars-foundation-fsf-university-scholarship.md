@@ -72,9 +72,8 @@ WhatsApp Group 3: <https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE
 
 > WhatsApp Channel: <https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I
 >
-> Website: www.scholarsplanet.com.ng
-> [www.scholarsplanet.com.ng ](<www.scholarsplanet.com.ng >)
-
-©️Scholars Planet
+> Website:  https://www.scholarsplanet.com.ng/
+>
+> ©️Scholars Planet
 
 Opening doors to endless possibilities
