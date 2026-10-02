@@ -56,34 +56,29 @@ Prepare and submit your concept note through the official NFPC application platf
 
 Do you have an innovative idea that can contribute to better health outcomes for young people? This could be your opportunity to develop it, present it and receive support.
 
- Please don't forget to share this opportunity with other students, young innovators and youth leaders.
+ Please don't forget to share this opportunity with other students, young innovators and youth leaders
 
-📍Please don't forget to share, follow our channel and join our group discussions via:
+Please don't forget to share, follow our channel and join our group discussions via:
 
-GROUP LINK 1️⃣
+GROUP LINK1️⃣
 
-[https://chat.whatsapp.com/L4jHXWmcQ678lk3YHGTYRt
+<https://chat.whatsapp.com/L4jHXWmcQ678lk3YHGTYRt>
 
-](<https://chat.whatsapp.com/L4jHXWmcQ678lk3YHGTYRt
+GROUP LINK 2️⃣
 
+<https://chat.whatsapp.com/GsiQeAN1OAp70UXEVYhPAt>
 
->)GROUP LINK 2️⃣
+GROUP LINK  3️⃣
 
-[https://chat.whatsapp.com/GsiQeAN1OAp70UXEVYhPAt
+<https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE>
 
-](<https://chat.whatsapp.com/GsiQeAN1OAp70UXEVYhPAt
-
-
->)GROUP LINK  3️⃣
-
-[https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE
-
-](<https://chat.whatsapp.com/LCFMjufnKKGLJyGNhHLQIE
-
-
->)CHANNEL LINK
+CHANNEL LINK
 
 <https://whatsapp.com/channel/0029VbBZ42aBlHpZfJ6KWv0I>
+
+©️ Scholars Planet 
+
+*Opening Doors To Endless Possibilities* 
 
 ![](/assets/img/uploads/251932.jpg)
 
