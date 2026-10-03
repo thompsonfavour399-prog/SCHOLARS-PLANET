@@ -7,7 +7,7 @@ summary: >-
   
   It's for newly admitted Nigerian university students who recently gained admission into a Nigerian university.
 
-  The Deadline is 15th Nov 2026.
+  The Deadline is 15th Nov 2026. The Benefit is a Tuition Support 
 link: https://forms.gle/1nDZZxm3khrqJMMh9
 image: ""
 ---
