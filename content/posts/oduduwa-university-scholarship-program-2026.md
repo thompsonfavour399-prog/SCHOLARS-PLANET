@@ -18,7 +18,7 @@ image: ""
 **FOCUS**: UNDERGRADUATE SCHOLARSHIP — OUI
 
 **DETAILS**:
-The Oduduwa University Scholarship Program is an opportunity for currently registered undergraduate students of \*Oduduwa University, Ipetumodu (OUI)\* who maintain good academic standing.
+The Oduduwa University Scholarship Program is an opportunity for currently registered undergraduate students of Oduduwa University, Ipetumodu (OUI) who maintain good academic standing.
 
 **ELIGIBILITY**:
 • Must be a currently registered undergraduate student of Oduduwa University, Ipetumodu.
