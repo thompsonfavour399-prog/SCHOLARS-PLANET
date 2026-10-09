@@ -1,5 +1,6 @@
 const { DateTime } = require("luxon");
-const batchItems = require("./_data/batchItems.js");
+const fs = require("fs");
+const path = require("path");
 
 /* ---------- helpers ---------- */
 function ymd(v) {
@@ -37,7 +38,39 @@ function slugToken(s) {
   return String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+/* ---------- "many at once" opportunities (read from _data/batch.json) ---------- */
+function slugify(str) {
+  return String(str || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 90);
+}
+function batchItems() {
+  let raw = {};
+  try { raw = JSON.parse(fs.readFileSync(path.join(__dirname, "_data", "batch.json"), "utf8")); } catch (e) { raw = {}; }
+  const posts = Array.isArray(raw.posts) ? raw.posts : [];
+  const used = new Set();
+  try {
+    fs.readdirSync(path.join(__dirname, "content", "opportunities"))
+      .filter((f) => f.endsWith(".md")).forEach((f) => used.add(f.replace(/\.md$/, "")));
+  } catch (e) {}
+  const today = new Date().toISOString().slice(0, 10);
+  const out = [];
+  posts.forEach((p) => {
+    if (!p || !String(p.title || "").trim()) return;
+    const base = slugify(p.slug) || slugify(p.title) || "opportunity";
+    let slug = base, n = 2;
+    while (used.has(slug)) slug = base + "-" + n++;
+    used.add(slug);
+    out.push({
+      slug, title: String(p.title).trim(), category: String(p.category || "Scholarship"),
+      level: asArray(p.level), date: ymd(p.date) || today, deadline: ymd(p.deadline),
+      summary: String(p.summary || ""), link: String(p.link || ""), body: String(p.body || ""),
+    });
+  });
+  return out;
+}
+
 module.exports = function (eleventyConfig) {
+  eleventyConfig.addGlobalData("batchOpportunities", () => batchItems());
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("node_modules/**");
   eleventyConfig.addPassthroughCopy("assets");

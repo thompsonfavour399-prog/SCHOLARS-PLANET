@@ -62,7 +62,7 @@ body.menu-open{overflow:hidden}
 
 /* Hero */
 .hero{position:relative;color:#fff;overflow:hidden;background:var(--navy)}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(100deg,rgba(7,20,40,.96) 0%,rgba(11,31,58,.88) 45%,rgba(11,31,58,.45) 80%,rgba(11,31,58,.25) 100%),url('/assets/img/hero-graduate.jpg') center 22%/cover no-repeat}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(100deg,rgba(7,20,40,.96) 0%,rgba(11,31,58,.88) 45%,rgba(11,31,58,.45) 80%,rgba(11,31,58,.25) 100%),url('/assets/img/hero-graduate.jpg') center 35%/cover no-repeat}
 .hero-bg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to top,var(--navy-2) 8%,rgba(19,41,75,0))}
 .hero-in{position:relative;padding:96px 24px 88px}
 .eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#F6B26B;font-weight:600;margin:0 0 14px}

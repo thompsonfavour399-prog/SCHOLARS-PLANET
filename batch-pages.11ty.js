@@ -5,7 +5,7 @@ const md = markdownIt({ html: true, linkify: true, breaks: false });
 module.exports = class {
   data() {
     return {
-      pagination: { data: "batchItems", size: 1, alias: "item" },
+      pagination: { data: "batchOpportunities", size: 1, alias: "item" },
       permalink: (data) => `/opportunities/${data.item.slug}/`,
       layout: "post.njk",
       eleventyExcludeFromCollections: true,
