@@ -1,0 +1,28 @@
+---
+layout: base.njk
+title: WhatsApp list | Scholars Planet admin
+permalink: /admin/list/
+noindex: true
+bodyClass: page-listing
+eleventyExcludeFromCollections: true
+---
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Ongoing opportunities: WhatsApp list</h1>
+    <p>Every opportunity that is still open, grouped by category and level. Expired ones are removed automatically. Copy and paste straight into WhatsApp.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <script type="application/json" id="wa-data">{{ collections.opportunityIndex | jsonify | safe }}</script>
+    <script type="application/json" id="wa-site">{{ { url: site.url, whatsapp: site.whatsapp } | jsonify | safe }}</script>
+    <div class="wa-bar">
+      <label>Show <select id="wa-cat"><option value="all">All categories</option></select></label>
+      <button class="btn" type="button" id="wa-copy-all"><svg class="ic"><use href="#i-copy"/></svg> Copy everything</button>
+      <a class="btn btn-ghost" href="/admin/">Back to admin</a>
+      <span class="wa-status" id="wa-status" aria-live="polite"></span>
+    </div>
+    <div id="wa-groups"></div>
+    <p class="note">This page updates itself every time it is opened, so you never copy an expired opportunity. It is not linked anywhere on the public site.</p>
+  </div>
+</section>

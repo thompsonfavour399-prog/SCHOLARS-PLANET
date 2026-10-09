@@ -1,0 +1,4 @@
+{
+  "layout": "award.njk",
+  "permalink": "/award-notifications/{{ page.fileSlug }}/"
+}

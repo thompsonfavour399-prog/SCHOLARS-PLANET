@@ -1,0 +1,26 @@
+---
+layout: base.njk
+title: Free Learning Materials, Platforms & Tools | Scholars Planet
+description: Free learning platforms, study tools and resources to build skills and prepare stronger scholarship applications.
+permalink: /materials/
+bodyClass: page-listing
+---
+{% from "macros.njk" import materialCard %}
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Materials</h1>
+    <p>Free learning platforms, tools and resources to build skills and prepare stronger applications.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    {%- for group in collections.materials | groupByType %}
+    <div class="group">
+      <h2 class="group-title">{{ group.type }}</h2>
+      <div class="grid">{%- for m in group.items %}{{ materialCard(m) }}{% endfor %}</div>
+    </div>
+    {%- else %}
+    <div class="empty">Materials are being added. Check back soon.</div>
+    {%- endfor %}
+  </div>
+</section>

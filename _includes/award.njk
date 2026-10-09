@@ -1,0 +1,47 @@
+---
+layout: base.njk
+bodyClass: page-post
+---
+{%- set shareUrl = site.url ~ page.url -%}
+<section class="post-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/award-notifications/">Award Notifications</a></nav>
+    <div class="card-tags"><span class="chip chip-onDark">{{ type or "Announcement" }}</span></div>
+    <h1>{{ title }}</h1>
+    <p class="post-meta">Published {{ date | longDate }}</p>
+  </div>
+</section>
+<div class="wrap post-layout">
+  <article class="post-main">
+    {%- if image %}<img class="post-cover" src="{{ image }}" alt="">{% endif %}
+    <div class="prose">{{ content | safe }}</div>
+    {%- if link %}
+    <div class="apply-box">
+      <div><h3>Official announcement</h3><p>Read the full announcement from the organisers.</p></div>
+      <a class="btn btn-lg" href="{{ link }}" target="_blank" rel="noopener">View announcement <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+    {%- endif %}
+    <div class="share-row">
+      <span>Share:</span>
+      <a class="btn btn-ghost btn-sm" href="https://wa.me/?text={{ (title ~ ' ' ~ shareUrl) | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> WhatsApp</a>
+      <a class="btn btn-ghost btn-sm" href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
+      <button class="btn btn-ghost btn-sm" type="button" data-copy="{{ shareUrl }}"><svg class="ic"><use href="#i-link"/></svg> Copy link</button>
+    </div>
+  </article>
+  <aside class="post-side">
+    <div class="side-card join-card">
+      <h3>Stay informed</h3>
+      <p>Results and new opportunities are posted first on our WhatsApp channel.</p>
+      <a class="btn btn-block" href="{{ site.whatsapp }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> Join the channel</a>
+    </div>
+    <div class="side-card related">
+      <h3>Open opportunities</h3>
+      <ul>
+        {%- for r in collections.activeOpportunities | limit(4) %}
+        <li><a href="{{ r.url }}"><b>{{ r.data.title }}</b><span>{{ r.data.category }}{% if r.data.deadline %} · Closes {{ r.data.deadline | readableDate }}{% endif %}</span></a></li>
+        {%- endfor %}
+      </ul>
+      <a class="side-more" href="/opportunities/">See all opportunities <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+  </aside>
+</div>

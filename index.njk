@@ -1,0 +1,110 @@
+---
+layout: base.njk
+title: Scholars Planet | Scholarships, Grants, Fellowships & Free Learning
+description: Verified scholarships, grants, fellowships, competitions and free learning resources for students in Nigeria and across Africa, sorted by nearest deadline.
+bodyClass: page-home
+---
+{% from "macros.njk" import card, materialCard, awardCard %}
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Scholarships · Grants · Fellowships · Competitions</p>
+    <h1>Opening doors to endless possibilities.</h1>
+    <p class="lede">Verified opportunities with real deadlines, free learning resources and award results, all in one place, so no student misses their chance.</p>
+    <form class="hero-search" action="/opportunities/" method="get" role="search">
+      <svg class="ic"><use href="#i-search"/></svg>
+      <input type="search" name="q" placeholder="Search scholarships, grants, competitions…" aria-label="Search opportunities">
+      <button class="btn" type="submit">Search</button>
+    </form>
+    <div class="hero-cta">
+      <a class="btn btn-onDark" href="{{ site.whatsapp }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> Join WhatsApp channel</a>
+      <a class="btn btn-ghost-light" href="{{ site.facebook }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
+      <a class="btn btn-ghost-light" href="{{ site.instagram }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg> Instagram</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-in">
+    <div class="stat"><b>3,400+</b><span>students reached</span></div>
+    <div class="stat"><b>2,700+</b><span>benefited from scholarships</span></div>
+    <div class="stat"><b>3,000+</b><span>benefited from free digital learning &amp; fellowships</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Explore Scholars Planet</h2><p>Everything a student needs to find, prepare for and win opportunities.</p></div>
+    <div class="tiles">
+      <a class="tile" href="/opportunities/"><svg class="ic ic-xl"><use href="#i-cap"/></svg><h3>Opportunities</h3><p>Scholarships, grants, fellowships and competitions, sorted by nearest deadline and filterable by level.</p><span class="tile-link">Browse <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="tile" href="/materials/"><svg class="ic ic-xl"><use href="#i-book"/></svg><h3>Materials</h3><p>Free learning platforms, tools and resources to build skills and prepare stronger applications.</p><span class="tile-link">Explore <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="tile" href="/award-notifications/"><svg class="ic ic-xl"><use href="#i-trophy"/></svg><h3>Award Notifications</h3><p>Winners and results of scholarships and essay contests, announced as soon as they are out.</p><span class="tile-link">See results <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+      <a class="tile" href="/saved/"><svg class="ic ic-xl"><use href="#i-bookmark"/></svg><h3>Saved</h3><p>Bookmark opportunities and come back to them later. No account needed.</p><span class="tile-link">Open saved <svg class="ic"><use href="#i-arrow"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head row"><div><h2>Latest opportunities</h2><p>Nearest deadlines first. Closed opportunities move to the end and are marked as expired.</p></div><a class="link-arrow" href="/opportunities/">View all <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+    <div class="grid" id="home-grid">
+      {%- for post in collections.opportunities | limit(9) %}{{ card(post) }}{% else %}
+      <div class="empty">New opportunities are added regularly. Join the WhatsApp channel to be first to know.</div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{%- if collections.awards.length %}
+<section class="section">
+  <div class="wrap">
+    <div class="section-head row"><div><h2>Latest award notifications</h2><p>Results and winners.</p></div><a class="link-arrow" href="/award-notifications/">View all <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+    <div class="grid">{%- for a in collections.awards | limit(3) %}{{ awardCard(a) }}{% endfor %}</div>
+  </div>
+</section>
+{%- endif %}
+
+{%- if collections.materials.length %}
+<section class="section {{ 'section-alt' if not collections.awards.length }}">
+  <div class="wrap">
+    <div class="section-head row"><div><h2>Free learning &amp; study materials</h2><p>Build skills and strengthen your applications.</p></div><a class="link-arrow" href="/materials/">View all <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+    <div class="grid">{%- for m in collections.materials | limit(3) %}{{ materialCard(m) }}{% endfor %}</div>
+  </div>
+</section>
+{%- endif %}
+
+<section class="section sdg">
+  <div class="wrap">
+    <div class="section-head"><h2>Built around the UN Sustainable Development Goals</h2><p>Every opportunity we share works toward closing the education access gap for African students.</p></div>
+    <div class="sdg-grid">
+      <div class="sdg-card"><b>SDG 4</b><h3>Quality Education</h3><p>Widening access to scholarships, grants and training so cost is never the reason a student stops learning.</p></div>
+      <div class="sdg-card"><b>SDG 10</b><h3>Reduced Inequalities</h3><p>Reaching students who are furthest from reliable information, wherever they live.</p></div>
+      <div class="sdg-card"><b>SDG 8</b><h3>Decent Work &amp; Growth</h3><p>Free digital skills programmes that open real pathways to employment and income.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="story">
+  <div class="wrap story-in">
+    <h2>Why Scholars Planet exists</h2>
+    <p>Scholars Planet started with Samuel, a student who missed a $1,000 scholarship interview because the email announcing it arrived weeks late and he had no reliable place to check for opportunities in time. We exist so no student misses their chance because information arrived too late, or never arrived at all.</p>
+    <a class="link-arrow link-arrow-light" href="/about/">Read our story <svg class="ic"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="join">
+      <div class="join-text">
+        <h2>Never miss a deadline again</h2>
+        <p>Join the Scholars Planet community. New opportunities and results reach our channels first.</p>
+        <div class="join-buttons">
+          <a class="btn btn-onDark" href="{{ site.whatsapp }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> WhatsApp channel</a>
+          <a class="btn btn-ghost-light" href="{{ site.facebook }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
+          <a class="btn btn-ghost-light" href="{{ site.instagram }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg> Instagram</a>
+        </div>
+      </div>
+      <img class="join-qr" src="/assets/img/whatsapp-qr.png" alt="Scan to join the Scholars Planet WhatsApp channel" width="140" height="140">
+    </div>
+  </div>
+</section>

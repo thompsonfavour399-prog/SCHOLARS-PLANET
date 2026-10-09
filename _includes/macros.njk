@@ -1,0 +1,46 @@
+{% macro card(post) %}
+{%- set dl = post.data.deadline | ymd -%}
+{%- set levels = post.data.level | asArray -%}
+{%- set d = post.data.deadline | daysLeft -%}
+{%- set expired = (dl and d < 0) -%}
+<article class="card{{ ' is-expired' if expired }}" data-category="{{ post.data.category | lower }}" data-level="{{ levels | levelTokens }}" data-deadline="{{ dl }}" data-expired="{{ '1' if expired else '0' }}" data-slug="{{ post.fileSlug }}" data-title="{{ post.data.title | lower }}">
+  <button class="save-btn" type="button" data-save="{{ post.fileSlug }}" aria-label="Save {{ post.data.title }}" aria-pressed="false"><svg class="ic"><use href="#i-bookmark"/></svg></button>
+  <div class="card-tags">
+    {%- if expired %}<span class="chip chip-expired">Expired</span>{% endif %}
+    <span class="chip chip-cat">{{ post.data.category }}</span>
+    {%- for l in levels %}<span class="chip chip-level">{{ l }}</span>{% endfor %}
+  </div>
+  <h3 class="card-title"><a href="{{ post.url }}">{{ post.data.title }}</a></h3>
+  <p class="card-text">{{ post.data.summary }}</p>
+  <div class="card-foot">
+    {%- if dl %}
+    <span class="deadline js-countdown {{ 'is-expired-text' if expired }}{{ ' is-urgent' if (not expired and d <= 7) }}" data-deadline="{{ dl }}"><svg class="ic"><use href="#i-clock"/></svg> <span class="js-countdown-text">{% if expired %}Closed {{ dl | readableDate }}{% elif d == 0 %}Closes today{% else %}{{ d }} day{{ 's' if d != 1 }} left{% endif %}</span></span>
+    {%- else %}
+    <span class="deadline"><svg class="ic"><use href="#i-clock"/></svg> No fixed deadline</span>
+    {%- endif %}
+    <span class="card-link">View details <svg class="ic"><use href="#i-arrow"/></svg></span>
+  </div>
+</article>
+{% endmacro %}
+
+{% macro materialCard(item) %}
+{%- set href = item.data.link %}
+<article class="card card-material">
+  <div class="card-tags"><span class="chip chip-cat">{{ item.data.type }}</span></div>
+  <h3 class="card-title">{% if href %}<a href="{{ href }}"{% if href.startsWith('http') %} target="_blank" rel="noopener"{% endif %}>{{ item.data.title }}</a>{% else %}{{ item.data.title }}{% endif %}</h3>
+  <p class="card-text">{{ item.data.description }}</p>
+  <div class="card-foot">
+    <span class="deadline deadline-free">Free resource</span>
+    {% if href %}<span class="card-link">Open <svg class="ic"><use href="#i-arrow"/></svg></span>{% endif %}
+  </div>
+</article>
+{% endmacro %}
+
+{% macro awardCard(item) %}
+<article class="card card-award">
+  <div class="card-tags"><span class="chip chip-cat">{{ item.data.type or 'Announcement' }}</span><span class="chip chip-level">{{ item.date | readableDate }}</span></div>
+  <h3 class="card-title"><a href="{{ item.url }}">{{ item.data.title }}</a></h3>
+  <p class="card-text">{{ item.data.summary }}</p>
+  <div class="card-foot"><span class="deadline deadline-free"><svg class="ic"><use href="#i-trophy"/></svg> Results</span><span class="card-link">Read more <svg class="ic"><use href="#i-arrow"/></svg></span></div>
+</article>
+{% endmacro %}

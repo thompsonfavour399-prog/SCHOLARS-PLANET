@@ -1,0 +1,57 @@
+---
+layout: base.njk
+title: Scholarships, Grants, Fellowships & Competitions | Scholars Planet
+description: Browse verified scholarships, grants, fellowships, competitions, skills programmes and internships. Filter by category and education level, sorted by nearest deadline.
+permalink: /opportunities/
+bodyClass: page-listing
+---
+{% from "macros.njk" import card %}
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Opportunities</h1>
+    <p>Sorted by nearest deadline. Closed opportunities stay listed at the end, marked as expired.</p>
+  </div>
+</section>
+
+<section class="section listing" id="listing">
+  <div class="wrap">
+    <div class="toolbar">
+      <label class="searchbox"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="q" placeholder="Search by name or keyword" aria-label="Search opportunities"></label>
+      <div class="filter-group" role="group" aria-label="Filter by category">
+        <span class="filter-label">Category</span>
+        <div class="pills" data-filter="category">
+          <button type="button" class="pill is-active" data-value="all">All</button>
+          <button type="button" class="pill" data-value="scholarship">Scholarships</button>
+          <button type="button" class="pill" data-value="grant">Grants</button>
+          <button type="button" class="pill" data-value="fellowship">Fellowships</button>
+          <button type="button" class="pill" data-value="competition">Competitions</button>
+          <button type="button" class="pill" data-value="skills">Skills</button>
+          <button type="button" class="pill" data-value="internship">Internships</button>
+        </div>
+      </div>
+      <div class="filter-group" role="group" aria-label="Filter by education level">
+        <span class="filter-label">Level</span>
+        <div class="pills" data-filter="level">
+          <button type="button" class="pill is-active" data-value="all">All levels</button>
+          <button type="button" class="pill" data-value="undergraduate">Undergraduate</button>
+          <button type="button" class="pill" data-value="postgraduate">Postgraduate</button>
+          <button type="button" class="pill" data-value="high-school">High School</button>
+        </div>
+      </div>
+      <div class="filter-group" role="group" aria-label="Filter by status">
+        <span class="filter-label">Status</span>
+        <div class="pills" data-filter="status">
+          <button type="button" class="pill is-active" data-value="all">All</button>
+          <button type="button" class="pill" data-value="open">Open now</button>
+          <button type="button" class="pill" data-value="expired">Expired</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+    <div class="grid" id="grid">
+      {%- for post in collections.opportunities %}{{ card(post) }}{% endfor %}
+    </div>
+    <div class="empty" id="empty" hidden>No opportunities match these filters right now. Try another category or level, or join our WhatsApp channel to hear about new ones first.</div>
+  </div>
+</section>

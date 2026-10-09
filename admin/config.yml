@@ -1,0 +1,122 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: simple
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  # ---------------------------------------------------------------
+  # 1. Opportunities: MANY AT ONCE. Add or edit as many as you like,
+  #    then press Save once. One save = one deploy.
+  # ---------------------------------------------------------------
+  - name: "batch"
+    label: "Opportunities (many at once)"
+    format: "json"
+    files:
+      - label: "All opportunities: add or edit many, then Save once"
+        name: "all_opportunities"
+        file: "_data/batch.json"
+        fields:
+          - label: "Opportunities"
+            name: "posts"
+            widget: "list"
+            label_singular: "Opportunity"
+            summary: "{{fields.title}} ({{fields.category}})"
+            add_to_top: true
+            collapsed: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Web address name (leave empty for new posts. Do not change it later, so the link stays the same)", name: "slug", widget: "string", required: false }
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options: ["Scholarship", "Grant", "Fellowship", "Competition", "Skills", "Internship"]
+              - label: "Education level (pick every level that can apply)"
+                name: "level"
+                widget: "select"
+                multiple: true
+                min: 1
+                options: ["Undergraduate", "Postgraduate", "High School"]
+                default: ["Undergraduate"]
+              - { label: "Date posted", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Application deadline (leave empty if there is no fixed deadline)", name: "deadline", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+              - { label: "Short summary (shown on the cards)", name: "summary", widget: "text" }
+              - { label: "Official application link", name: "link", widget: "string", required: false }
+              - { label: "Full details", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------
+  # 2. Opportunities: ONE AT A TIME
+  # ---------------------------------------------------------------
+  - name: "opportunities"
+    label: "Opportunities (one at a time)"
+    label_singular: "Opportunity"
+    folder: "content/opportunities"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    summary: "{{title}} ({{category}})"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options: ["Scholarship", "Grant", "Fellowship", "Competition", "Skills", "Internship"]
+      - label: "Education level (pick every level that can apply)"
+        name: "level"
+        widget: "select"
+        multiple: true
+        min: 1
+        options: ["Undergraduate", "Postgraduate", "High School"]
+        default: ["Undergraduate"]
+      - { label: "Date posted", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", default: "{{now}}" }
+      - { label: "Application deadline (leave empty if there is no fixed deadline)", name: "deadline", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+      - { label: "Short summary (shown on the cards)", name: "summary", widget: "text" }
+      - { label: "Official application link", name: "link", widget: "string", required: false }
+      - { label: "Cover image", name: "image", widget: "image", required: false }
+      - { label: "Full details", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------
+  # 3. Materials (learning platforms, tools, guides). No deadline needed.
+  # ---------------------------------------------------------------
+  - name: "materials"
+    label: "Materials"
+    label_singular: "Material"
+    folder: "content/materials"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    summary: "{{title}} ({{type}})"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["Learning platform", "Tool", "Past questions & CBT", "Guide & template", "Other"]
+      - { label: "Short description", name: "description", widget: "text" }
+      - { label: "Link (full web address, or a path such as /tools/my-tool.html)", name: "link", widget: "string", required: false }
+      - { label: "Display order (smaller numbers show first)", name: "order", widget: "number", value_type: "int", default: 100, required: false }
+
+  # ---------------------------------------------------------------
+  # 4. Award Notifications (winners and results). No deadline or apply link needed.
+  # ---------------------------------------------------------------
+  - name: "awards"
+    label: "Award Notifications"
+    label_singular: "Award Notification"
+    folder: "content/awards"
+    create: true
+    slug: "{{slug}}"
+    format: "frontmatter"
+    summary: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["Scholarship award", "Essay contest result", "Competition result", "Other announcement"]
+      - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", default: "{{now}}" }
+      - { label: "Short summary", name: "summary", widget: "text" }
+      - { label: "Link to the official announcement (optional)", name: "link", widget: "string", required: false }
+      - { label: "Image (optional)", name: "image", widget: "image", required: false }
+      - { label: "Full announcement", name: "body", widget: "markdown" }

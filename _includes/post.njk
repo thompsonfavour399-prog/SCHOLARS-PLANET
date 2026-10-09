@@ -1,0 +1,99 @@
+---
+layout: base.njk
+bodyClass: page-post
+---
+{%- set levels = level | asArray -%}
+{%- set dl = deadline | ymd -%}
+{%- set shareUrl = site.url ~ page.url -%}
+{%- set saveSlug = slug or page.fileSlug -%}
+{%- set posted = postedDate or date -%}
+<section class="post-hero">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/opportunities/">Opportunities</a><span>/</span><span>{{ category }}</span></nav>
+    <div class="card-tags">
+      <span class="chip chip-onDark">{{ category }}</span>
+      {%- for l in levels %}<span class="chip chip-onDark chip-outline">{{ l }}</span>{% endfor %}
+    </div>
+    <h1>{{ title }}</h1>
+    <p class="post-meta">
+      Posted {{ posted | longDate }}
+      {%- if dl %} &nbsp;·&nbsp; Deadline: <strong>{{ dl | longDate }}</strong>{% endif %}
+    </p>
+  </div>
+</section>
+
+<div class="wrap post-layout">
+  <article class="post-main" data-deadline="{{ dl }}">
+    {%- if dl %}
+      {%- set d = deadline | daysLeft %}
+      {%- if d < 0 %}
+      <div class="notice notice-closed js-closed-banner">Applications for this opportunity closed on {{ dl | longDate }}.</div>
+      {%- else %}
+      <div class="notice notice-open js-open-banner" data-deadline="{{ dl }}"><svg class="ic"><use href="#i-clock"/></svg> <span class="js-countdown-text">{{ 'Closes today' if d == 0 else (d ~ ' day' ~ ('s' if d != 1) ~ ' left to apply') }}</span> <span class="notice-sub">Deadline {{ dl | longDate }}</span></div>
+      <div class="notice notice-closed js-closed-banner" hidden>Applications for this opportunity closed on {{ dl | longDate }}.</div>
+      {%- endif %}
+    {%- endif %}
+
+    <div class="prose">
+      {{ content | safe }}
+    </div>
+
+    {%- if link %}
+    <div class="apply-box">
+      <div>
+        <h3>Ready to apply?</h3>
+        <p>Always use the official link and never pay anyone to apply.</p>
+      </div>
+      <a class="btn btn-lg" href="{{ link }}" target="_blank" rel="noopener">Apply now <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+    {%- endif %}
+
+    <div class="share-row">
+      <span>Share:</span>
+      <a class="btn btn-ghost btn-sm" href="https://wa.me/?text={{ (title ~ ' ' ~ shareUrl) | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> WhatsApp</a>
+      <a class="btn btn-ghost btn-sm" href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
+      <button class="btn btn-ghost btn-sm" type="button" data-copy="{{ shareUrl }}"><svg class="ic"><use href="#i-link"/></svg> Copy link</button>
+    </div>
+    <div class="more-box">
+      <h3>Need more opportunities?</h3>
+      <p><a href="{{ site.groups[0] }}" target="_blank" rel="noopener">WhatsApp Group 1</a> · <a href="{{ site.groups[1] }}" target="_blank" rel="noopener">WhatsApp Group 2</a> · <a href="{{ site.groups[2] }}" target="_blank" rel="noopener">WhatsApp Group 3</a> · <a href="{{ site.whatsapp }}" target="_blank" rel="noopener">WhatsApp Channel</a> · <a href="{{ site.url }}">www.scholarsplanet.com.ng</a></p>
+      <p class="more-sign">&copy; Scholars Planet &middot; Opening doors to endless possibilities</p>
+    </div>
+  </article>
+
+  <aside class="post-side">
+    <div class="side-card facts">
+      <h3>At a glance</h3>
+      <dl>
+        <div><dt>Category</dt><dd>{{ category }}</dd></div>
+        <div><dt>Level</dt><dd>{{ levels | join(", ") if levels.length else "Open" }}</dd></div>
+        <div><dt>Deadline</dt><dd>{{ dl | longDate if dl else "No fixed deadline" }}</dd></div>
+      </dl>
+      {%- if link %}<a class="btn btn-block" href="{{ link }}" target="_blank" rel="noopener">Apply now</a>{% endif %}
+      <button class="btn btn-ghost btn-block save-wide" type="button" data-save="{{ saveSlug }}" aria-pressed="false"><svg class="ic"><use href="#i-bookmark"/></svg> <span class="js-save-label">Save for later</span></button>
+    </div>
+
+    <div class="side-card join-card">
+      <h3>Never miss a deadline</h3>
+      <p>Get new opportunities on our WhatsApp channel the moment they are verified.</p>
+      <a class="btn btn-block" href="{{ site.whatsapp }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> Join the channel</a>
+      <div class="social-row social-row-dark">
+        <a href="{{ site.facebook }}" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>
+        <a href="{{ site.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
+      </div>
+    </div>
+
+    {%- set rel = collections.activeOpportunities | relatedTo(page.url, category, 4) %}
+    {%- if rel.length %}
+    <div class="side-card related">
+      <h3>More opportunities</h3>
+      <ul>
+        {%- for r in rel %}
+        <li><a href="{{ r.url }}"><b>{{ r.data.title }}</b><span>{{ r.data.category }}{% if r.data.deadline %} · Closes {{ r.data.deadline | readableDate }}{% endif %}</span></a></li>
+        {%- endfor %}
+      </ul>
+      <a class="side-more" href="/opportunities/">See all opportunities <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+    {%- endif %}
+  </aside>
+</div>

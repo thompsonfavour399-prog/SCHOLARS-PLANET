@@ -1,0 +1,23 @@
+---
+layout: base.njk
+title: Award Notifications | Scholarship and Contest Results | Scholars Planet
+description: Winners and results of scholarships, essay contests and related opportunities, announced by Scholars Planet.
+permalink: /award-notifications/
+bodyClass: page-listing
+---
+{% from "macros.njk" import awardCard %}
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Award Notifications</h1>
+    <p>Winners and results of scholarships, essay contests and related opportunities.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    {%- if collections.awards.length %}
+    <div class="grid">{%- for a in collections.awards %}{{ awardCard(a) }}{% endfor %}</div>
+    {%- else %}
+    <div class="empty">No award notifications have been posted yet. Results will appear here as soon as organisers announce them. Join our WhatsApp channel to be notified first.</div>
+    {%- endif %}
+  </div>
+</section>
