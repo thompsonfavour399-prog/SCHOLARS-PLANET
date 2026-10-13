@@ -1,0 +1,23 @@
+---
+permalink: /feed-awards.xml
+eleventyExcludeFromCollections: true
+---<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Scholars Planet: Award Notifications</title>
+  <link>{{ site.url }}/award-notifications/</link>
+  <atom:link href="{{ site.url }}/feed-awards.xml" rel="self" type="application/rss+xml" />
+  <description>Winners and results of scholarships, essay contests and related opportunities.</description>
+  <language>en</language>
+{%- for a in collections.awards | limit(30) %}
+  <item>
+    <title>{{ a.data.title }}</title>
+    <link>{{ site.url }}{{ a.url }}</link>
+    <guid isPermaLink="true">{{ site.url }}{{ a.url }}</guid>
+    <pubDate>{{ a.date | rssDate }}</pubDate>
+    <category>{{ a.data.type }}</category>
+    <description>{{ a.data.summary }}</description>
+  </item>
+{%- endfor %}
+</channel>
+</rss>

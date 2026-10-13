@@ -2,7 +2,7 @@
 layout: base.njk
 bodyClass: page-post
 ---
-{% from "macros.njk" import adSlot %}
+{% from "macros.njk" import adSlot, emailForm %}
 {%- set levels = level | asArray -%}
 {%- set dl = deadline | ymd -%}
 {%- set shareUrl = site.url ~ page.url -%}
@@ -57,6 +57,7 @@ bodyClass: page-post
       <span>Share:</span>
       <a class="btn btn-ghost btn-sm" href="https://wa.me/?text={{ (title ~ ' ' ~ shareUrl) | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> WhatsApp</a>
       <a class="btn btn-ghost btn-sm" href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
+      <a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/sharing/share-offsite/?url={{ shareUrl | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-in"/></svg> LinkedIn</a>
       <button class="btn btn-ghost btn-sm" type="button" data-copy="{{ shareUrl }}"><svg class="ic"><use href="#i-link"/></svg> Copy link</button>
     </div>
     <div class="more-box">
@@ -87,8 +88,17 @@ bodyClass: page-post
       <div class="social-row social-row-dark">
         <a href="{{ site.facebook }}" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic"><use href="#i-fb"/></svg></a>
         <a href="{{ site.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic"><use href="#i-ig"/></svg></a>
+        {%- if social and social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-in"/></svg></a>{% endif %}
       </div>
     </div>
+
+    {%- if email and email.formCode %}
+    <div class="side-card email-side">
+      <h3>{{ email.heading or "Get new opportunities by email" }}</h3>
+      <p>New scholarships and grants in your inbox.</p>
+      {{ emailForm(email) }}
+    </div>
+    {%- endif %}
 
     {%- set rel = collections.activeOpportunities | relatedTo(page.url, category, 4) %}
     {%- if rel.length %}

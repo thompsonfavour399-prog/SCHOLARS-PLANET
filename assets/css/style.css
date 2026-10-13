@@ -293,3 +293,31 @@ body.menu-open{overflow:hidden}
 .post-side .ad{margin:0}
 
 .card-material .card-text{-webkit-line-clamp:9}
+
+/* Email signup + sponsorship */
+.email-band{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+.email-band h2{margin-bottom:.3em}
+.email-band p{color:var(--muted);margin:0}
+.email-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;min-height:120px}
+.email-card-lg{padding:30px}
+.email-form{max-width:100%;overflow:hidden}
+.email-side p{margin-bottom:10px}
+.support-band{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-left:5px solid var(--amber);border-radius:var(--radius);padding:30px 34px}
+.support-band h2{margin-bottom:.25em}
+.support-band p{color:var(--muted);margin:0;max-width:640px}
+.bank-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--shadow)}
+.bank-card h2{font-size:1.3rem;margin-bottom:12px}
+.bank-card dl{margin:0}
+.bank-card dl>div{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
+.bank-card dl>div:last-child{border-bottom:0}
+.bank-card dt{color:var(--muted);font-size:.92rem}
+.bank-card dd{margin:0;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bank-card .acct{font-size:1.25rem;letter-spacing:.06em}
+.bank-card a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
+.note-lg{font-size:1rem;color:var(--ink);margin-top:22px}
+@media (max-width:800px){.email-band{grid-template-columns:1fr}}
+
+/* Admin summary tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.tab{border:1.5px solid var(--line);background:#fff;color:#334155;border-radius:999px;padding:10px 20px;font:600 .92rem 'Inter',sans-serif;cursor:pointer}
+.tab.is-active{background:var(--navy);color:#fff;border-color:var(--navy)}

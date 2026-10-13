@@ -344,5 +344,83 @@
     render();
   }
 
+  /* ---------- WhatsApp lists: tabs, materials, award notifications ---------- */
+  if (qs('#wa-materials')) {
+    var siteInfo = JSON.parse(qs('#wa-site').textContent);
+    var mats = JSON.parse(qs('#wa-materials').textContent);
+    var awardsList = JSON.parse(qs('#wa-awards').textContent);
+
+    qsa('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var name = tab.getAttribute('data-tab');
+        qsa('.tab').forEach(function (t) { t.classList.toggle('is-active', t === tab); });
+        qsa('.tab-panel').forEach(function (p) { p.hidden = p.id !== 'panel-' + name; });
+      });
+    });
+    var flashIn = function (el, msg) { el.textContent = msg; setTimeout(function () { el.textContent = ''; }, 2400); };
+    var absLink = function (link) {
+      if (!link) return siteInfo.url + '/materials/';
+      return /^https?:/i.test(link) ? link : siteInfo.url + link;
+    };
+
+    // Materials
+    var TYPE_ORDER = ['Learning platform', 'Guide & template', 'Tool', 'Past questions & CBT', 'Other'];
+    var COST_TEXT = { 'Free': 'Free', 'Free to start': 'Free to start', 'Paid': 'Paid', 'Varies': 'Check the cost on the site' };
+    var buildMaterials = function () {
+      var types = TYPE_ORDER.filter(function (t) { return mats.some(function (m) { return m.type === t; }); });
+      mats.forEach(function (m) { if (types.indexOf(m.type) === -1) types.push(m.type); });
+      return types.map(function (t) {
+        var items = mats.filter(function (m) { return m.type === t; });
+        var lines = items.map(function (m, i) {
+          return (i + 1) + '. ' + m.title + '\nLink: ' + absLink(m.link) + '\nCost: ' + (COST_TEXT[m.cost] || m.cost || 'Free');
+        });
+        return { title: t, text: t.toUpperCase() + '\n\n' + lines.join('\n\n') };
+      });
+    };
+    var mGroups = qs('#wa-m-groups'), mData = buildMaterials();
+    var fullM = function () {
+      return 'LEARNING MATERIALS ON SCHOLARS PLANET\nUpdated: ' + longDate(todayYMD()) + '\n\n' +
+        mData.map(function (g) { return g.text; }).join('\n\n\n') +
+        '\n\n\nSee all materials: ' + siteInfo.url + '/materials/\nJoin our WhatsApp channel for new opportunities first:\n' + siteInfo.whatsapp;
+    };
+    if (!mData.length) mGroups.innerHTML = '<div class="empty">There are no materials to list yet.</div>';
+    mData.forEach(function (g, idx) {
+      var box = document.createElement('div'); box.className = 'wa-group';
+      box.innerHTML = '<div class="wa-group-head"><h3>' + esc(g.title) + '</h3><button class="btn btn-ghost btn-sm" type="button" data-midx="' + idx + '"><svg class="ic"><use href="#i-copy"/></svg> Copy this group</button></div><pre>' + esc(g.text) + '</pre>';
+      mGroups.appendChild(box);
+    });
+    mGroups.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-midx]'); if (!b) return;
+      copyText(mData[+b.getAttribute('data-midx')].text, function () { flashIn(qs('#wa-m-status'), 'Group copied'); });
+    });
+    qs('#wa-m-copy-all').addEventListener('click', function () {
+      if (mData.length) copyText(fullM(), function () { flashIn(qs('#wa-m-status'), 'Copied. Paste it into WhatsApp.'); });
+    });
+
+    // Award notifications
+    var aGroups = qs('#wa-a-groups'), aLimit = qs('#wa-a-limit'), aText = '';
+    var buildAwardsText = function () {
+      var n = aLimit.value === 'all' ? awardsList.length : +aLimit.value;
+      var items = awardsList.slice(0, n);
+      if (!items.length) return '';
+      var lines = items.map(function (a, i) {
+        return (i + 1) + '. ' + a.title + '\nLink: ' + siteInfo.url + a.url + '\nDate: ' + (a.date ? longDate(a.date) : '');
+      });
+      return 'AWARD NOTIFICATIONS ON SCHOLARS PLANET\nUpdated: ' + longDate(todayYMD()) + '\n\n' + lines.join('\n\n') +
+        '\n\n\nSee all award notifications: ' + siteInfo.url + '/award-notifications/\nJoin our WhatsApp channel for new opportunities first:\n' + siteInfo.whatsapp;
+    };
+    var renderAwards = function () {
+      aText = buildAwardsText();
+      aGroups.innerHTML = aText
+        ? '<div class="wa-group"><div class="wa-group-head"><h3>Latest award notifications</h3></div><pre>' + esc(aText) + '</pre></div>'
+        : '<div class="empty">No award notifications have been posted yet.</div>';
+    };
+    aLimit.addEventListener('change', renderAwards);
+    qs('#wa-a-copy-all').addEventListener('click', function () {
+      if (aText) copyText(aText, function () { flashIn(qs('#wa-a-status'), 'Copied. Paste it into WhatsApp.'); });
+    });
+    renderAwards();
+  }
+
   refreshSavedUI();
 })();

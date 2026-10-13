@@ -1,0 +1,20 @@
+---
+layout: base.njk
+title: Subscribe by Email | Scholars Planet
+description: Get new scholarships, grants and other opportunities from Scholars Planet by email.
+permalink: /subscribe/
+bodyClass: page-listing
+---
+{% from "macros.njk" import emailForm %}
+<section class="page-hero">
+  <div class="wrap">
+    <h1>{{ email.heading or "Get new opportunities by email" }}</h1>
+    <p>{{ email.intro }}</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap narrow">
+    <div class="email-card email-card-lg">{{ emailForm(email) }}</div>
+    <p class="note">We use your email only to send you updates from Scholars Planet. You can unsubscribe in one click from any email. Read our <a href="/privacy-policy/">Privacy Policy</a>.</p>
+  </div>
+</section>

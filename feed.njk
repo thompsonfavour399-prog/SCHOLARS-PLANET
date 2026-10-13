@@ -16,7 +16,7 @@ eleventyExcludeFromCollections: true
     <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
     <pubDate>{{ post.date | rssDate }}</pubDate>
     <category>{{ post.data.category }}</category>
-    <description>{{ post.data.summary }}</description>
+    <description>{{ post.data.summary }}{% if post.data.deadline %} Deadline: {{ post.data.deadline | longDate }}.{% endif %}</description>
   </item>
 {%- endfor %}
 </channel>

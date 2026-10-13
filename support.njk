@@ -1,0 +1,30 @@
+---
+layout: base.njk
+title: Support Scholars Planet | Sponsorship
+description: Sponsor Scholars Planet and help us keep sharing verified scholarships and learning resources with students for free.
+permalink: /support/
+bodyClass: page-listing
+---
+<section class="page-hero">
+  <div class="wrap">
+    <h1>{{ sponsor.heading or "Support Scholars Planet" }}</h1>
+    <p>{{ sponsor.message }}</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap narrow">
+    {%- if sponsor and sponsor.accountNumber %}
+    <div class="bank-card">
+      <h2>Sponsorship account</h2>
+      <dl>
+        <div><dt>Bank</dt><dd>{{ sponsor.bankName }}</dd></div>
+        <div><dt>Account number</dt><dd><span class="acct">{{ sponsor.accountNumber }}</span> <button class="btn btn-ghost btn-sm" type="button" data-copy="{{ sponsor.accountNumber }}"><svg class="ic"><use href="#i-copy"/></svg> Copy</button></dd></div>
+        <div><dt>Account name</dt><dd>{{ sponsor.accountName }}</dd></div>
+        <div><dt>Contact</dt><dd><a href="mailto:{{ sponsor.contactEmail }}">{{ sponsor.contactEmail }}</a></dd></div>
+      </dl>
+    </div>
+    {%- endif %}
+    {%- if sponsor.note %}<p class="note note-lg">{{ sponsor.note }}</p>{% endif %}
+    <p class="note">Questions about sponsorship or advertising? Email <a href="mailto:{{ sponsor.contactEmail or site.email }}">{{ sponsor.contactEmail or site.email }}</a>.</p>
+  </div>
+</section>

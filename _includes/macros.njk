@@ -62,3 +62,8 @@
   <div class="card-foot"><span class="deadline deadline-free"><svg class="ic"><use href="#i-trophy"/></svg> Results</span><span class="card-link">Read more <svg class="ic"><use href="#i-arrow"/></svg></span></div>
 </article>
 {% endmacro %}
+
+
+{% macro emailForm(email) %}
+{%- if email and email.formCode %}<div class="email-form">{{ email.formCode | safe }}</div>{% endif %}
+{% endmacro %}

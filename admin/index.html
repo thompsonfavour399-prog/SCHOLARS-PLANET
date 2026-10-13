@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Scholars Planet — Content Manager</title>
+  <style>
+    /* stops the "pull down to refresh" gesture on phones from wiping a draft */
+    html, body { overscroll-behavior-y: contain; }
+  </style>
 </head>
 <body>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
@@ -17,14 +21,144 @@
         }
       });
     }
-    // Shortcut to the WhatsApp-ready list of ongoing opportunities
+    // Shortcut to the WhatsApp lists
     window.addEventListener("load", function () {
       var a = document.createElement("a");
       a.href = "/admin/list/";
-      a.textContent = "WhatsApp list of ongoing opportunities";
+      a.textContent = "WhatsApp lists";
       a.style.cssText = "position:fixed;right:16px;bottom:16px;z-index:9999;background:#E8871E;color:#fff;padding:12px 18px;border-radius:999px;font:600 14px/1 Inter,Arial,sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25)";
       document.body.appendChild(a);
     });
+  </script>
+  <script>
+    /* AUTO-SAVE SAFETY NET
+       Everything you type in the admin is copied to this phone/browser every second or so.
+       If the page refreshes or closes before you press Save, a bar appears next time
+       with your unsaved text, ready to copy and paste back. */
+    (function () {
+      var KEY = 'sp_admin_backup_v1', MAX_AGE = 14 * 24 * 3600 * 1000;
+      var dirty = false, timer = null, lastKey = null, lastJSON = '';
+
+      function readAll() { try { var v = JSON.parse(localStorage.getItem(KEY) || '{}'); return v && typeof v === 'object' ? v : {}; } catch (e) { return {}; } }
+      function writeAll(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} }
+      function pageKey() { return location.hash || '#/'; }
+      function inOurUI(el) { return el.closest && el.closest('#sp-backup-bar, #sp-backup-panel'); }
+
+      function labelFor(el) {
+        try {
+          var a = el.getAttribute('aria-label'); if (a) return a;
+          if (el.id) { var l = document.querySelector('label[for="' + el.id.replace(/"/g, '') + '"]'); if (l && l.textContent.trim()) return l.textContent.trim(); }
+          var p = el.parentElement;
+          for (var d = 0; p && d < 7; d++, p = p.parentElement) {
+            var lab = p.querySelector('label');
+            if (lab && lab.textContent.trim() && !lab.contains(el)) return lab.textContent.trim();
+          }
+        } catch (e) {}
+        return 'Field';
+      }
+
+      function collect() {
+        var out = [], els = document.querySelectorAll('input, textarea, [contenteditable="true"]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (inOurUI(el)) continue;
+          var type = (el.type || '').toLowerCase();
+          if (/^(password|checkbox|radio|file|hidden|search|button|submit|range|color)$/.test(type)) continue;
+          var v = el.isContentEditable ? el.innerText : el.value;
+          if (v && v.trim()) out.push({ l: labelFor(el), v: v.trim() });
+        }
+        return out;
+      }
+
+      function snapshot() {
+        try {
+          var fields = collect();
+          if (!fields.length) return;
+          var json = JSON.stringify(fields);
+          if (json === lastJSON && lastKey === pageKey()) return;
+          lastJSON = json; lastKey = pageKey();
+          var all = readAll();
+          all[lastKey] = { t: Date.now(), f: fields };
+          var now = Date.now();
+          Object.keys(all).forEach(function (k) { if (!all[k] || now - all[k].t > MAX_AGE) delete all[k]; });
+          writeAll(all);
+        } catch (e) {}
+      }
+      function later() { clearTimeout(timer); timer = setTimeout(snapshot, 700); }
+
+      document.addEventListener('input', function (e) { if (inOurUI(e.target)) return; dirty = true; later(); }, true);
+      document.addEventListener('keyup', function (e) { if (!inOurUI(e.target) && dirty) later(); }, true);
+      setInterval(function () { if (dirty) snapshot(); }, 4000);
+      document.addEventListener('visibilitychange', function () { if (document.hidden && dirty) snapshot(); });
+      window.addEventListener('pagehide', function () { if (dirty) snapshot(); });
+      window.addEventListener('beforeunload', function (e) {
+        if (dirty) { snapshot(); e.preventDefault(); e.returnValue = ''; return ''; }
+      });
+
+      // once the CMS confirms a save/publish, the backup is no longer needed
+      function clearBackup() {
+        var all = readAll();
+        if (lastKey) delete all[lastKey];
+        delete all[pageKey()];
+        writeAll(all); dirty = false; lastJSON = '';
+        var bar = document.getElementById('sp-backup-bar'); if (bar) bar.remove();
+      }
+      new MutationObserver(function (muts) {
+        for (var i = 0; i < muts.length; i++) {
+          var added = muts[i].addedNodes;
+          for (var j = 0; j < added.length; j++) {
+            var n = added[j];
+            if (n.nodeType === 1 && n.textContent && n.textContent.length < 300 && /entry (saved|published|deleted)/i.test(n.textContent)) { clearBackup(); return; }
+          }
+        }
+      }).observe(document.documentElement, { childList: true, subtree: true });
+
+      // ----- recovery bar -----
+      function css(el, s) { el.style.cssText = s; return el; }
+      function copyText(text, done) {
+        function fb() { var ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} ta.remove(); if (done) done(); }
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { if (done) done(); }, fb); else fb();
+      }
+      function openPanel(rec, key) {
+        var old = document.getElementById('sp-backup-panel'); if (old) old.remove();
+        var p = css(document.createElement('div'), 'position:fixed;inset:0;z-index:100000;background:rgba(15,23,42,.6);overflow:auto;padding:16px;font:14px/1.5 Inter,Arial,sans-serif');
+        p.id = 'sp-backup-panel';
+        var box = css(document.createElement('div'), 'background:#fff;border-radius:14px;max-width:720px;margin:0 auto;padding:18px');
+        var h = css(document.createElement('div'), 'display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px');
+        var t = css(document.createElement('b'), 'flex:1;font-size:16px'); t.textContent = 'Your unsaved text';
+        function btn(label, bg, fn) { var b = css(document.createElement('button'), 'border:0;border-radius:999px;padding:10px 16px;font:600 13px Inter,Arial,sans-serif;cursor:pointer;background:' + bg + ';color:' + (bg === '#fff' ? '#0B1F3A;border:1px solid #cbd5e1' : '#fff')); b.type = 'button'; b.textContent = label; b.onclick = fn; return b; }
+        h.appendChild(t);
+        h.appendChild(btn('Copy all', '#E8871E', function (e) { var all = rec.f.map(function (x) { return x.l + ':\n' + x.v; }).join('\n\n'); var b = e.target; copyText(all, function () { b.textContent = 'Copied!'; }); }));
+        h.appendChild(btn('Close', '#fff', function () { p.remove(); }));
+        box.appendChild(h);
+        rec.f.forEach(function (x) {
+          var w = css(document.createElement('div'), 'margin-bottom:12px');
+          var l = css(document.createElement('div'), 'font-weight:600;color:#334155;margin-bottom:4px'); l.textContent = x.l;
+          var ta = css(document.createElement('textarea'), 'width:100%;min-height:70px;border:1px solid #cbd5e1;border-radius:8px;padding:8px;font:14px/1.5 Inter,Arial,sans-serif'); ta.readOnly = true; ta.value = x.v;
+          var c = btn('Copy', '#fff', function (e) { var b = e.target; copyText(x.v, function () { b.textContent = 'Copied!'; setTimeout(function () { b.textContent = 'Copy'; }, 1500); }); });
+          c.style.marginTop = '4px';
+          w.appendChild(l); w.appendChild(ta); w.appendChild(c); box.appendChild(w);
+        });
+        box.appendChild(btn('Delete this backup', '#B42318', function () { var all = readAll(); delete all[key]; writeAll(all); p.remove(); var bar = document.getElementById('sp-backup-bar'); if (bar) bar.remove(); }));
+        p.appendChild(box); document.body.appendChild(p);
+      }
+      function showBar() {
+        var key = pageKey(), rec = readAll()[key];
+        var old = document.getElementById('sp-backup-bar'); if (old) old.remove();
+        if (!rec || !rec.f || !rec.f.length) return;
+        if (dirty && lastKey === key) return; // you are typing now, nothing to recover
+        var bar = css(document.createElement('div'), 'position:fixed;left:12px;right:12px;bottom:70px;z-index:99999;background:#0B1F3A;color:#fff;border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:14px/1.4 Inter,Arial,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.35)');
+        bar.id = 'sp-backup-bar';
+        var m = css(document.createElement('span'), 'flex:1;min-width:200px');
+        var mins = Math.max(1, Math.round((Date.now() - rec.t) / 60000));
+        m.textContent = 'Unsaved text from ' + (mins < 60 ? mins + ' min' : Math.round(mins / 60) + ' h') + ' ago was found for this page (' + rec.f.length + ' fields).';
+        var v = css(document.createElement('button'), 'border:0;border-radius:999px;padding:9px 14px;background:#E8871E;color:#fff;font:600 13px Inter,Arial,sans-serif;cursor:pointer'); v.type = 'button'; v.textContent = 'View and copy'; v.onclick = function () { openPanel(rec, key); };
+        var x = css(document.createElement('button'), 'border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:9px 14px;background:transparent;color:#fff;font:600 13px Inter,Arial,sans-serif;cursor:pointer'); x.type = 'button'; x.textContent = 'Dismiss'; x.onclick = function () { bar.remove(); };
+        bar.appendChild(m); bar.appendChild(v); bar.appendChild(x); document.body.appendChild(bar);
+      }
+      window.addEventListener('load', function () { setTimeout(showBar, 3500); });
+      window.addEventListener('hashchange', function () { setTimeout(showBar, 1800); });
+    })();
   </script>
 </body>
 </html>

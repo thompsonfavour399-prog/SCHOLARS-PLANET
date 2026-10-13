@@ -194,6 +194,63 @@ collections:
       - { label: "Full announcement", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------
+  # OUR NUMBERS, EMAIL SIGNUP FORM, SPONSORSHIP DETAILS
+  # ---------------------------------------------------------------
+  - name: "numbers"
+    label: "Our numbers"
+    description: "Update the three numbers shown on the home page and About page. Type the number only, without the plus sign."
+    format: "json"
+    files:
+      - label: "Numbers"
+        name: "our_numbers"
+        file: "_data/stats.json"
+        fields:
+          - { label: "Students reached (example: 3,400)", name: "studentsReached", widget: "string" }
+          - { label: "Benefited from scholarships (example: 2,700)", name: "scholarshipBeneficiaries", widget: "string" }
+          - { label: "Benefited from free digital learning and fellowships (example: 3,000)", name: "learningBeneficiaries", widget: "string" }
+
+  - name: "emailsignup"
+    label: "Email signup form"
+    description: "The EmailOctopus form shown on the home page, the Subscribe page and next to opportunities."
+    format: "json"
+    files:
+      - label: "Email signup"
+        name: "email_signup"
+        file: "_data/email.json"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Short introduction", name: "intro", widget: "text" }
+          - { label: "Form code from EmailOctopus (paste the whole code)", name: "formCode", widget: "text" }
+
+  - name: "sponsorship"
+    label: "Sponsorship details"
+    description: "Shown on the Support us page and as a section on the home page."
+    format: "json"
+    files:
+      - label: "Sponsorship"
+        name: "sponsorship_details"
+        file: "_data/sponsor.json"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Message", name: "message", widget: "text" }
+          - { label: "Bank name", name: "bankName", widget: "string" }
+          - { label: "Account number", name: "accountNumber", widget: "string" }
+          - { label: "Account name", name: "accountName", widget: "string" }
+          - { label: "Contact email", name: "contactEmail", widget: "string" }
+          - { label: "Note shown under the account details", name: "note", widget: "text", required: false }
+
+  - name: "social"
+    label: "Social links"
+    description: "LinkedIn link shown in the footer, menu, home page and reading pages. Leave empty to hide it."
+    format: "json"
+    files:
+      - label: "Social links"
+        name: "social_links"
+        file: "_data/social.json"
+        fields:
+          - { label: "LinkedIn page link", name: "linkedin", widget: "string", required: false }
+
+  # ---------------------------------------------------------------
   # SITE SETTINGS + ADS
   # ---------------------------------------------------------------
   - name: "settings"

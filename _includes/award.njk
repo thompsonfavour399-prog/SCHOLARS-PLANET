@@ -26,6 +26,7 @@ bodyClass: page-post
       <span>Share:</span>
       <a class="btn btn-ghost btn-sm" href="https://wa.me/?text={{ (title ~ ' ' ~ shareUrl) | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> WhatsApp</a>
       <a class="btn btn-ghost btn-sm" href="https://www.facebook.com/sharer/sharer.php?u={{ shareUrl | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
+      <a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/sharing/share-offsite/?url={{ shareUrl | urlencode }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-in"/></svg> LinkedIn</a>
       <button class="btn btn-ghost btn-sm" type="button" data-copy="{{ shareUrl }}"><svg class="ic"><use href="#i-link"/></svg> Copy link</button>
     </div>
   </article>

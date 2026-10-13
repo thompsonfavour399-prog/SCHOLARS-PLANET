@@ -25,3 +25,13 @@ Put tool files (for example `pdf-merger.html`) in the `tools` folder, then add a
 
 ## Updating (v10)
 This update only contains changed files. It does not touch your posts (`_data/batch.json`) or your links (`_data/site.json`). Upload everything in the update folder; it overwrites the old versions.
+
+## Update v11
+New: email signup form, Support us (sponsorship) page, editable numbers, LinkedIn, WhatsApp lists for materials and award notifications, LinkedIn share button, and an award notifications feed.
+Automation feeds for Facebook and LinkedIn tools (Zapier, Make, IFTTT, Buffer):
+- New opportunities: https://www.scholarsplanet.com.ng/feed.xml
+- New award notifications: https://www.scholarsplanet.com.ng/feed-awards.xml
+Upload v10 first if you have not already. This update never overwrites your posts, ads, links or lists.
+
+## Admin auto-save (v11)
+The admin page now copies what you type to your phone as you go. After a refresh a bar offers your unsaved text to copy and paste back. Pull-to-refresh is switched off in the admin.

@@ -4,7 +4,7 @@ title: Scholars Planet | Scholarships, Grants, Fellowships & Free Learning
 description: Verified scholarships, grants, fellowships, competitions and free learning resources for students in Nigeria and across Africa, sorted by nearest deadline.
 bodyClass: page-home
 ---
-{% from "macros.njk" import card, materialCard, awardCard, adSlot %}
+{% from "macros.njk" import card, materialCard, awardCard, adSlot, emailForm %}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="wrap hero-in">
@@ -20,15 +20,16 @@ bodyClass: page-home
       <a class="btn btn-onDark" href="{{ site.whatsapp }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> Join WhatsApp channel</a>
       <a class="btn btn-ghost-light" href="{{ site.facebook }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
       <a class="btn btn-ghost-light" href="{{ site.instagram }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg> Instagram</a>
+      {%- if social and social.linkedin %}<a class="btn btn-ghost-light" href="{{ social.linkedin }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-in"/></svg> LinkedIn</a>{% endif %}
     </div>
   </div>
 </section>
 
 <section class="stats">
   <div class="wrap stats-in">
-    <div class="stat"><b>3,400+</b><span>students reached</span></div>
-    <div class="stat"><b>2,700+</b><span>benefited from scholarships</span></div>
-    <div class="stat"><b>3,000+</b><span>benefited from free digital learning &amp; fellowships</span></div>
+    <div class="stat"><b>{{ stats.studentsReached or "3,400" }}+</b><span>students reached</span></div>
+    <div class="stat"><b>{{ stats.scholarshipBeneficiaries or "2,700" }}+</b><span>benefited from scholarships</span></div>
+    <div class="stat"><b>{{ stats.learningBeneficiaries or "3,000" }}+</b><span>benefited from free digital learning &amp; fellowships</span></div>
   </div>
 </section>
 
@@ -96,6 +97,32 @@ bodyClass: page-home
   </div>
 </section>
 
+{%- if email and email.formCode %}
+<section class="section section-alt">
+  <div class="wrap email-band">
+    <div class="email-band-text">
+      <h2>{{ email.heading or "Get new opportunities by email" }}</h2>
+      <p>{{ email.intro }}</p>
+    </div>
+    <div class="email-card">{{ emailForm(email) }}</div>
+  </div>
+</section>
+{%- endif %}
+
+{%- if sponsor and sponsor.accountNumber %}
+<section class="section">
+  <div class="wrap">
+    <div class="support-band">
+      <div>
+        <h2>{{ sponsor.heading or "Support Scholars Planet" }}</h2>
+        <p>{{ sponsor.message }}</p>
+      </div>
+      <a class="btn btn-lg" href="/support/">Sponsor our work <svg class="ic"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+{%- endif %}
+
 <section class="section">
   <div class="wrap">
     <div class="join">
@@ -106,6 +133,7 @@ bodyClass: page-home
           <a class="btn btn-onDark" href="{{ site.whatsapp }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-wa"/></svg> WhatsApp channel</a>
           <a class="btn btn-ghost-light" href="{{ site.facebook }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-fb"/></svg> Facebook</a>
           <a class="btn btn-ghost-light" href="{{ site.instagram }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-ig"/></svg> Instagram</a>
+      {%- if social and social.linkedin %}<a class="btn btn-ghost-light" href="{{ social.linkedin }}" target="_blank" rel="noopener"><svg class="ic"><use href="#i-in"/></svg> LinkedIn</a>{% endif %}
         </div>
       </div>
       <img class="join-qr" src="/assets/img/whatsapp-qr.png" alt="Scan to join the Scholars Planet WhatsApp channel" width="140" height="140">

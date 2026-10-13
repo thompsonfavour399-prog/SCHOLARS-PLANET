@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: WhatsApp list | Scholars Planet admin
+title: WhatsApp lists | Scholars Planet admin
 permalink: /admin/list/
 noindex: true
 bodyClass: page-listing
@@ -8,21 +8,52 @@ eleventyExcludeFromCollections: true
 ---
 <section class="page-hero">
   <div class="wrap">
-    <h1>Ongoing opportunities: WhatsApp list</h1>
-    <p>Every opportunity that is still open, grouped by category and level. Expired ones are removed automatically. Copy and paste straight into WhatsApp.</p>
+    <h1>WhatsApp lists</h1>
+    <p>Plain-text summaries ready to paste into WhatsApp: open opportunities, learning materials and award notifications. They update themselves every time you open this page.</p>
   </div>
 </section>
 <section class="section">
   <div class="wrap">
     <script type="application/json" id="wa-data">{{ collections.opportunityIndex | jsonify | safe }}</script>
+    <script type="application/json" id="wa-materials">{{ collections.materialsIndex | jsonify | safe }}</script>
+    <script type="application/json" id="wa-awards">{{ collections.awardsIndex | jsonify | safe }}</script>
     <script type="application/json" id="wa-site">{{ { url: site.url, whatsapp: site.whatsapp } | jsonify | safe }}</script>
-    <div class="wa-bar">
-      <label>Show <select id="wa-cat"><option value="all">All categories</option></select></label>
-      <button class="btn" type="button" id="wa-copy-all"><svg class="ic"><use href="#i-copy"/></svg> Copy everything</button>
-      <a class="btn btn-ghost" href="/admin/">Back to admin</a>
-      <span class="wa-status" id="wa-status" aria-live="polite"></span>
+
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" type="button" data-tab="opps">Opportunities</button>
+      <button class="tab" type="button" data-tab="materials">Materials</button>
+      <button class="tab" type="button" data-tab="awards">Award notifications</button>
     </div>
-    <div id="wa-groups"></div>
-    <p class="note">This page updates itself every time it is opened, so you never copy an expired opportunity. It is not linked anywhere on the public site.</p>
+
+    <div id="panel-opps" class="tab-panel">
+      <div class="wa-bar">
+        <label>Show <select id="wa-cat"><option value="all">All categories</option></select></label>
+        <button class="btn" type="button" id="wa-copy-all"><svg class="ic"><use href="#i-copy"/></svg> Copy everything</button>
+        <a class="btn btn-ghost" href="/admin/">Back to admin</a>
+        <span class="wa-status" id="wa-status" aria-live="polite"></span>
+      </div>
+      <div id="wa-groups"></div>
+    </div>
+
+    <div id="panel-materials" class="tab-panel" hidden>
+      <div class="wa-bar">
+        <button class="btn" type="button" id="wa-m-copy-all"><svg class="ic"><use href="#i-copy"/></svg> Copy everything</button>
+        <a class="btn btn-ghost" href="/admin/">Back to admin</a>
+        <span class="wa-status" id="wa-m-status" aria-live="polite"></span>
+      </div>
+      <div id="wa-m-groups"></div>
+    </div>
+
+    <div id="panel-awards" class="tab-panel" hidden>
+      <div class="wa-bar">
+        <label>Show latest <select id="wa-a-limit"><option value="10">10</option><option value="20">20</option><option value="all">All</option></select></label>
+        <button class="btn" type="button" id="wa-a-copy-all"><svg class="ic"><use href="#i-copy"/></svg> Copy everything</button>
+        <a class="btn btn-ghost" href="/admin/">Back to admin</a>
+        <span class="wa-status" id="wa-a-status" aria-live="polite"></span>
+      </div>
+      <div id="wa-a-groups"></div>
+    </div>
+
+    <p class="note">This page is not linked anywhere on the public site.</p>
   </div>
 </section>

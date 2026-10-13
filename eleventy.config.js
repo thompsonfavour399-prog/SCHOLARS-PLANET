@@ -173,7 +173,7 @@ module.exports = function (eleventyConfig) {
   );
   // Materials: single markdown files + the "many at once" list.
   // If both have the same title, the "many at once" version wins.
-  eleventyConfig.addCollection("materials", (api) => {
+  function buildMaterials(api) {
     const fromBatch = batchMaterials().map((m) => ({
       url: null, fileSlug: slugify(m.title), date: new Date(),
       data: { title: m.title, type: m.type, description: m.description, link: m.link, cost: m.cost, order: m.order },
@@ -191,9 +191,9 @@ module.exports = function (eleventyConfig) {
     return fromBatch.concat(fromFiles).sort(
       (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title)
     );
-  });
+  }
   // Award notifications: single markdown files + the "many at once" list (newest first)
-  eleventyConfig.addCollection("awards", (api) => {
+  function buildAwards(api) {
     const fromFiles = api.getFilteredByGlob("content/awards/*.md").map((i) => ({
       url: i.url, fileSlug: i.fileSlug, date: i.date,
       data: { title: i.data.title, type: i.data.type || "Announcement", summary: i.data.summary || "", link: i.data.link || "", image: i.data.image || "" },
@@ -203,7 +203,16 @@ module.exports = function (eleventyConfig) {
       data: { title: b.title, type: b.type, summary: b.summary, link: b.link, image: b.image },
     }));
     return fromFiles.concat(fromBatch).filter((i) => i.data.title).sort((a, b) => b.date - a.date);
-  });
+  }
+  eleventyConfig.addCollection("materials", (api) => buildMaterials(api));
+  eleventyConfig.addCollection("awards", (api) => buildAwards(api));
+  // plain lists for the admin WhatsApp summaries
+  eleventyConfig.addCollection("materialsIndex", (api) =>
+    buildMaterials(api).map((m) => ({ title: m.data.title, type: m.data.type, cost: m.data.cost, link: m.data.link }))
+  );
+  eleventyConfig.addCollection("awardsIndex", (api) =>
+    buildAwards(api).map((a) => ({ title: a.data.title, type: a.data.type, url: a.url, date: ymd(a.date) }))
+  );
   // plain objects used by client-side scripts (saved page, WhatsApp list)
   eleventyConfig.addCollection("opportunityIndex", (api) =>
     orderOpps(allNormalized(api)).map((i) => ({

@@ -16,7 +16,7 @@ bodyClass: page-listing
 
     <h2>Our story</h2>
     <p>Scholars Planet began with Samuel, a student who missed the interview for a $1,000 scholarship because the notification email arrived weeks late, and he had no reliable place to have found it sooner. That single missed opportunity became the reason Scholars Planet exists: so that timing and access to information are never the reason a student misses their chance.</p>
-    <p>What started as a WhatsApp channel has grown to reach over 3,400 students, with more than 2,700 benefiting from scholarships and over 3,000 benefiting from free digital learning and fellowship programmes.</p>
+    <p>What started as a WhatsApp channel has grown to reach over {{ stats.studentsReached or "3,400" }} students, with more than {{ stats.scholarshipBeneficiaries or "2,700" }} benefiting from scholarships and over {{ stats.learningBeneficiaries or "3,000" }} benefiting from free digital learning and fellowship programmes.</p>
 
     <h2>Our mission</h2>
     <p>To close the information gap in education access by curating and delivering verified scholarships, grants, fellowships, competitions and learning resources to students who might otherwise never hear about them in time.</p>
@@ -38,6 +38,6 @@ bodyClass: page-listing
     <p>We link to official application pages wherever we can find them. Deadlines and requirements can change, so always confirm details on the official page before you apply, and never pay anyone to apply for a scholarship.</p>
 
     <h2>Get in touch</h2>
-    <p>Have a verified opportunity you would like us to share? Reach us on the <a href="{{ site.whatsapp }}" target="_blank" rel="noopener">WhatsApp channel</a>, on <a href="{{ site.facebook }}" target="_blank" rel="noopener">Facebook</a>, on <a href="{{ site.instagram }}" target="_blank" rel="noopener">Instagram</a>, or by email at <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
+    <p>Have a verified opportunity you would like us to share? Reach us on the <a href="{{ site.whatsapp }}" target="_blank" rel="noopener">WhatsApp channel</a>, on <a href="{{ site.facebook }}" target="_blank" rel="noopener">Facebook</a>, on <a href="{{ site.instagram }}" target="_blank" rel="noopener">Instagram</a>, {% if social and social.linkedin %}on <a href="{{ social.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>, {% endif %}or by email at <a href="mailto:{{ site.email }}">{{ site.email }}</a>.</p>
   </div>
 </section>
