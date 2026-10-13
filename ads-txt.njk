@@ -1,0 +1,6 @@
+---
+permalink: /ads.txt
+eleventyExcludeFromCollections: true
+---{% if ads and ads.adsensePublisherId %}google.com, {{ ads.adsensePublisherId | replace("ca-", "") }}, DIRECT, f08c47fec0942fa0
+{% else %}# No authorised sellers listed yet
+{% endif %}

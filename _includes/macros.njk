@@ -25,15 +25,33 @@
 
 {% macro materialCard(item) %}
 {%- set href = item.data.link %}
+{%- set cost = item.data.cost or 'Free' %}
+{%- set costText = 'Free resource' if cost == 'Free' else ('Free to start' if cost == 'Free to start' else ('Paid' if cost == 'Paid' else 'Check cost on site')) %}
+{%- set costClass = 'deadline-free' if (cost == 'Free' or cost == 'Free to start') else ('deadline-paid' if cost == 'Paid' else 'deadline-varies') %}
 <article class="card card-material">
   <div class="card-tags"><span class="chip chip-cat">{{ item.data.type }}</span></div>
   <h3 class="card-title">{% if href %}<a href="{{ href }}"{% if href.startsWith('http') %} target="_blank" rel="noopener"{% endif %}>{{ item.data.title }}</a>{% else %}{{ item.data.title }}{% endif %}</h3>
   <p class="card-text">{{ item.data.description }}</p>
   <div class="card-foot">
-    <span class="deadline deadline-free">Free resource</span>
+    <span class="deadline {{ costClass }}">{{ costText }}</span>
     {% if href %}<span class="card-link">Open <svg class="ic"><use href="#i-arrow"/></svg></span>{% endif %}
   </div>
 </article>
+{% endmacro %}
+
+{% macro adSlot(ads, name) %}
+{%- set s = ads.slots[name] if (ads and ads.slots) else null -%}
+{%- if s and s.type == "Sponsor banner" and s.image and s.link %}
+<aside class="ad ad-{{ name }}" aria-label="Advertisement">
+  <span class="ad-label">Advertisement</span>
+  <a href="{{ s.link }}" target="_blank" rel="sponsored noopener"><img src="{{ s.image }}" alt="{{ s.sponsor or 'Sponsored' }}" loading="lazy"></a>
+</aside>
+{%- elif s and s.type == "AdSense code" and s.code %}
+<aside class="ad ad-{{ name }}" aria-label="Advertisement">
+  <span class="ad-label">Advertisement</span>
+  <div class="ad-code">{{ s.code | safe }}</div>
+</aside>
+{%- endif %}
 {% endmacro %}
 
 {% macro awardCard(item) %}

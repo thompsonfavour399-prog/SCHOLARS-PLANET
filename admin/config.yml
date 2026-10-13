@@ -8,11 +8,11 @@ public_folder: "/assets/uploads"
 
 collections:
   # ---------------------------------------------------------------
-  # 1. Opportunities: MANY AT ONCE. Add or edit as many as you like,
-  #    then press Save once. One save = one deploy.
+  # OPPORTUNITIES: MANY AT ONCE. One Save = one deploy.
   # ---------------------------------------------------------------
   - name: "batch"
     label: "Opportunities (many at once)"
+    description: "Add or edit many opportunities, then press Save once. For the WhatsApp-ready list of open opportunities, go to scholarsplanet.com.ng/admin/list/"
     format: "json"
     files:
       - label: "All opportunities: add or edit many, then Save once"
@@ -47,11 +47,12 @@ collections:
               - { label: "Full details", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------
-  # 2. Opportunities: ONE AT A TIME
+  # OPPORTUNITIES: ONE AT A TIME
   # ---------------------------------------------------------------
   - name: "opportunities"
     label: "Opportunities (one at a time)"
     label_singular: "Opportunity"
+    description: "For a single opportunity. To add several together, use Opportunities (many at once)."
     folder: "content/opportunities"
     create: true
     slug: "{{slug}}"
@@ -78,10 +79,44 @@ collections:
       - { label: "Full details", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------
-  # 3. Materials (learning platforms, tools, guides). No deadline needed.
+  # MATERIALS: MANY AT ONCE
+  # ---------------------------------------------------------------
+  - name: "materials_batch"
+    label: "Materials (many at once)"
+    description: "Add or edit many materials, then press Save once."
+    format: "json"
+    files:
+      - label: "All materials: add or edit many, then Save once"
+        name: "all_materials"
+        file: "_data/batchMaterials.json"
+        fields:
+          - label: "Materials"
+            name: "materials"
+            widget: "list"
+            label_singular: "Material"
+            summary: "{{fields.title}} ({{fields.type}})"
+            add_to_top: true
+            collapsed: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options: ["Learning platform", "Tool", "Past questions & CBT", "Guide & template", "Other"]
+              - label: "Cost"
+                name: "cost"
+                widget: "select"
+                options: ["Free", "Free to start", "Paid", "Varies"]
+                default: "Free"
+              - { label: "Short description", name: "description", widget: "text" }
+              - { label: "Link (full web address, or a path such as /tools/my-tool.html)", name: "link", widget: "string", required: false }
+              - { label: "Display order (smaller numbers show first)", name: "order", widget: "number", value_type: "int", default: 100, required: false }
+
+  # ---------------------------------------------------------------
+  # MATERIALS: ONE AT A TIME
   # ---------------------------------------------------------------
   - name: "materials"
-    label: "Materials"
+    label: "Materials (one at a time)"
     label_singular: "Material"
     folder: "content/materials"
     create: true
@@ -94,15 +129,52 @@ collections:
         name: "type"
         widget: "select"
         options: ["Learning platform", "Tool", "Past questions & CBT", "Guide & template", "Other"]
+      - label: "Cost"
+        name: "cost"
+        widget: "select"
+        options: ["Free", "Free to start", "Paid", "Varies"]
+        default: "Free"
       - { label: "Short description", name: "description", widget: "text" }
       - { label: "Link (full web address, or a path such as /tools/my-tool.html)", name: "link", widget: "string", required: false }
       - { label: "Display order (smaller numbers show first)", name: "order", widget: "number", value_type: "int", default: 100, required: false }
 
   # ---------------------------------------------------------------
-  # 4. Award Notifications (winners and results). No deadline or apply link needed.
+  # AWARD NOTIFICATIONS: MANY AT ONCE
+  # ---------------------------------------------------------------
+  - name: "awards_batch"
+    label: "Award Notifications (many at once)"
+    description: "Add or edit many award notifications, then press Save once."
+    format: "json"
+    files:
+      - label: "All award notifications: add or edit many, then Save once"
+        name: "all_awards"
+        file: "_data/batchAwards.json"
+        fields:
+          - label: "Award notifications"
+            name: "posts"
+            widget: "list"
+            label_singular: "Award notification"
+            summary: "{{fields.title}} ({{fields.type}})"
+            add_to_top: true
+            collapsed: true
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Web address name (leave empty for new posts. Do not change it later, so the link stays the same)", name: "slug", widget: "string", required: false }
+              - label: "Type"
+                name: "type"
+                widget: "select"
+                options: ["Scholarship award", "Essay contest result", "Competition result", "Other announcement"]
+              - { label: "Date", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Short summary", name: "summary", widget: "text" }
+              - { label: "Link to the official announcement (optional)", name: "link", widget: "string", required: false }
+              - { label: "Image (optional)", name: "image", widget: "image", required: false }
+              - { label: "Full announcement", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------
+  # AWARD NOTIFICATIONS: ONE AT A TIME
   # ---------------------------------------------------------------
   - name: "awards"
-    label: "Award Notifications"
+    label: "Award Notifications (one at a time)"
     label_singular: "Award Notification"
     folder: "content/awards"
     create: true
@@ -120,3 +192,141 @@ collections:
       - { label: "Link to the official announcement (optional)", name: "link", widget: "string", required: false }
       - { label: "Image (optional)", name: "image", widget: "image", required: false }
       - { label: "Full announcement", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------
+  # SITE SETTINGS + ADS
+  # ---------------------------------------------------------------
+  - name: "settings"
+    label: "Site settings"
+    description: "Change contact email, WhatsApp group and social links here."
+    format: "json"
+    files:
+      - label: "Contact details and links"
+        name: "site_settings"
+        file: "_data/site.json"
+        fields:
+          - { label: "Website address (no slash at the end)", name: "url", widget: "string" }
+          - { label: "Site name", name: "name", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Contact email", name: "email", widget: "string" }
+          - { label: "WhatsApp channel link", name: "whatsapp", widget: "string" }
+          - { label: "Facebook link", name: "facebook", widget: "string" }
+          - { label: "Instagram link", name: "instagram", widget: "string" }
+          - label: "WhatsApp group links (Group 1, Group 2, Group 3 in order)"
+            name: "groups"
+            widget: "list"
+            field: { label: "Group link", name: "group", widget: "string" }
+
+  - name: "ads"
+    label: "Ads"
+    description: "Choose what appears in each ad space. A space set to Off stays hidden."
+    format: "json"
+    files:
+      - label: "Ad spaces"
+        name: "ad_spaces"
+        file: "_data/ads.json"
+        fields:
+          - { label: "Google AdSense publisher ID (looks like ca-pub-1234567890123456). Leave empty until AdSense approves you", name: "adsensePublisherId", widget: "string", required: false }
+          - label: "Ad spaces"
+            name: "slots"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "Home page: below the numbers strip"
+                name: "home_top"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }
+              - label: "Home page: after the latest opportunities"
+                name: "home_middle"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }
+              - label: "Opportunities page: above the list"
+                name: "listing_top"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }
+              - label: "Reading page: above the article"
+                name: "post_top"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }
+              - label: "Reading page: below the article"
+                name: "post_bottom"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }
+              - label: "Reading page: side column"
+                name: "post_side"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }
+              - label: "Every page: above the footer"
+                name: "footer_top"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - label: "What to show here"
+                    name: "type"
+                    widget: "select"
+                    options: ["Off", "Sponsor banner", "AdSense code"]
+                    default: "Off"
+                  - { label: "Sponsor name (used as the image description)", name: "sponsor", widget: "string", required: false }
+                  - { label: "Sponsor banner image", name: "image", widget: "image", required: false }
+                  - { label: "Where the banner links to", name: "link", widget: "string", required: false }
+                  - { label: "AdSense code (paste the full ad unit code from AdSense)", name: "code", widget: "text", required: false }

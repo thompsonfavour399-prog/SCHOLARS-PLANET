@@ -3,12 +3,13 @@ layout: base.njk
 bodyClass: page-post
 ---
 {%- set shareUrl = site.url ~ page.url -%}
+{%- set posted = postedDate or date -%}
 <section class="post-hero">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/award-notifications/">Award Notifications</a></nav>
     <div class="card-tags"><span class="chip chip-onDark">{{ type or "Announcement" }}</span></div>
     <h1>{{ title }}</h1>
-    <p class="post-meta">Published {{ date | longDate }}</p>
+    <p class="post-meta">Published {{ posted | longDate }}</p>
   </div>
 </section>
 <div class="wrap post-layout">

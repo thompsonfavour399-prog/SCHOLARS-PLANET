@@ -280,3 +280,16 @@ body.menu-open{overflow:hidden}
 .card.is-expired .card-title a{color:#475569}
 .card.is-expired .card-text{opacity:.75}
 .deadline.is-expired-text{color:var(--danger)}
+
+/* Cost labels on materials */
+.deadline-paid{color:#B54708}
+.deadline-varies{color:var(--muted)}
+
+/* Ad slots (hidden automatically when empty) */
+.ad{margin:26px 0;text-align:center}
+.ad-label{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:#94A3B8;margin-bottom:6px}
+.ad img{max-width:100%;height:auto;margin:0 auto;border-radius:10px;border:1px solid var(--line)}
+.ad-code{overflow:hidden}
+.post-side .ad{margin:0}
+
+.card-material .card-text{-webkit-line-clamp:9}

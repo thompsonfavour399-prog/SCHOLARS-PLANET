@@ -22,3 +22,6 @@ They stay on the website, move to the end of the list and show a red "Expired" t
 
 ## Your own HTML tools
 Put tool files (for example `pdf-merger.html`) in the `tools` folder, then add a Material in `/admin` with the link `/tools/pdf-merger.html`.
+
+## Updating (v10)
+This update only contains changed files. It does not touch your posts (`_data/batch.json`) or your links (`_data/site.json`). Upload everything in the update folder; it overwrites the old versions.

@@ -69,7 +69,56 @@ function batchItems() {
   return out;
 }
 
+function readJSON(name) {
+  try { return JSON.parse(fs.readFileSync(path.join(__dirname, "_data", name), "utf8")); } catch (e) { return {}; }
+}
+function uniqueSlug(base, used) {
+  let slug = base || "item", n = 2;
+  while (used.has(slug)) slug = (base || "item") + "-" + n++;
+  used.add(slug);
+  return slug;
+}
+function mdSlugs(dir) {
+  const used = new Set();
+  try {
+    fs.readdirSync(path.join(__dirname, "content", dir))
+      .filter((f) => f.endsWith(".md")).forEach((f) => used.add(f.replace(/\.md$/, "")));
+  } catch (e) {}
+  return used;
+}
+/* ---------- "many at once" award notifications (_data/batchAwards.json) ---------- */
+function batchAwards() {
+  const raw = readJSON("batchAwards.json");
+  const posts = Array.isArray(raw.posts) ? raw.posts : [];
+  const used = mdSlugs("awards");
+  const today = new Date().toISOString().slice(0, 10);
+  const out = [];
+  posts.forEach((p) => {
+    if (!p || !String(p.title || "").trim()) return;
+    out.push({
+      slug: uniqueSlug(slugify(p.slug) || slugify(p.title) || "announcement", used),
+      title: String(p.title).trim(), type: String(p.type || "Announcement"),
+      date: ymd(p.date) || today, summary: String(p.summary || ""),
+      link: String(p.link || ""), image: String(p.image || ""), body: String(p.body || ""),
+    });
+  });
+  return out;
+}
+/* ---------- "many at once" materials (_data/batchMaterials.json) ---------- */
+function batchMaterials() {
+  const raw = readJSON("batchMaterials.json");
+  const list = Array.isArray(raw.materials) ? raw.materials : [];
+  return list
+    .filter((m) => m && String(m.title || "").trim())
+    .map((m) => ({
+      title: String(m.title).trim(), type: String(m.type || "Other"),
+      description: String(m.description || ""), link: String(m.link || ""),
+      cost: String(m.cost || "Free"), order: Number(m.order ?? 100),
+    }));
+}
+
 module.exports = function (eleventyConfig) {
+  eleventyConfig.addGlobalData("batchAwardPages", () => batchAwards());
   eleventyConfig.addGlobalData("batchOpportunities", () => batchItems());
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.ignores.add("node_modules/**");
@@ -122,15 +171,39 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("opportunitiesNewestFirst", (api) =>
     allNormalized(api).sort((a, b) => b.date - a.date)
   );
-  eleventyConfig.addCollection("materials", (api) =>
-    api.getFilteredByGlob("content/materials/*.md").sort((a, b) => {
-      const oa = Number(a.data.order ?? 100), ob = Number(b.data.order ?? 100);
-      return oa - ob || a.data.title.localeCompare(b.data.title);
-    })
-  );
-  eleventyConfig.addCollection("awards", (api) =>
-    api.getFilteredByGlob("content/awards/*.md").sort((a, b) => b.date - a.date)
-  );
+  // Materials: single markdown files + the "many at once" list.
+  // If both have the same title, the "many at once" version wins.
+  eleventyConfig.addCollection("materials", (api) => {
+    const fromBatch = batchMaterials().map((m) => ({
+      url: null, fileSlug: slugify(m.title), date: new Date(),
+      data: { title: m.title, type: m.type, description: m.description, link: m.link, cost: m.cost, order: m.order },
+    }));
+    const taken = new Set(fromBatch.map((m) => m.data.title.toLowerCase()));
+    const fromFiles = api.getFilteredByGlob("content/materials/*.md")
+      .filter((i) => i.data.title && !taken.has(String(i.data.title).toLowerCase()))
+      .map((i) => ({
+        url: null, fileSlug: i.fileSlug, date: i.date,
+        data: {
+          title: i.data.title, type: i.data.type || "Other", description: i.data.description || "",
+          link: i.data.link || "", cost: i.data.cost || "Free", order: Number(i.data.order ?? 100),
+        },
+      }));
+    return fromBatch.concat(fromFiles).sort(
+      (a, b) => a.data.order - b.data.order || a.data.title.localeCompare(b.data.title)
+    );
+  });
+  // Award notifications: single markdown files + the "many at once" list (newest first)
+  eleventyConfig.addCollection("awards", (api) => {
+    const fromFiles = api.getFilteredByGlob("content/awards/*.md").map((i) => ({
+      url: i.url, fileSlug: i.fileSlug, date: i.date,
+      data: { title: i.data.title, type: i.data.type || "Announcement", summary: i.data.summary || "", link: i.data.link || "", image: i.data.image || "" },
+    }));
+    const fromBatch = batchAwards().map((b) => ({
+      url: `/award-notifications/${b.slug}/`, fileSlug: b.slug, date: new Date(b.date + "T00:00:00Z"),
+      data: { title: b.title, type: b.type, summary: b.summary, link: b.link, image: b.image },
+    }));
+    return fromFiles.concat(fromBatch).filter((i) => i.data.title).sort((a, b) => b.date - a.date);
+  });
   // plain objects used by client-side scripts (saved page, WhatsApp list)
   eleventyConfig.addCollection("opportunityIndex", (api) =>
     orderOpps(allNormalized(api)).map((i) => ({

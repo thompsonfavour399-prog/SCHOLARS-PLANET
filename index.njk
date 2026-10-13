@@ -4,7 +4,7 @@ title: Scholars Planet | Scholarships, Grants, Fellowships & Free Learning
 description: Verified scholarships, grants, fellowships, competitions and free learning resources for students in Nigeria and across Africa, sorted by nearest deadline.
 bodyClass: page-home
 ---
-{% from "macros.njk" import card, materialCard, awardCard %}
+{% from "macros.njk" import card, materialCard, awardCard, adSlot %}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="wrap hero-in">
@@ -32,6 +32,8 @@ bodyClass: page-home
   </div>
 </section>
 
+<div class="wrap">{{ adSlot(ads, "home_top") }}</div>
+
 <section class="section">
   <div class="wrap">
     <div class="section-head"><h2>Explore Scholars Planet</h2><p>Everything a student needs to find, prepare for and win opportunities.</p></div>
@@ -55,6 +57,8 @@ bodyClass: page-home
   </div>
 </section>
 
+<div class="wrap">{{ adSlot(ads, "home_middle") }}</div>
+
 {%- if collections.awards.length %}
 <section class="section">
   <div class="wrap">
@@ -67,7 +71,7 @@ bodyClass: page-home
 {%- if collections.materials.length %}
 <section class="section {{ 'section-alt' if not collections.awards.length }}">
   <div class="wrap">
-    <div class="section-head row"><div><h2>Free learning &amp; study materials</h2><p>Build skills and strengthen your applications.</p></div><a class="link-arrow" href="/materials/">View all <svg class="ic"><use href="#i-arrow"/></svg></a></div>
+    <div class="section-head row"><div><h2>Learning &amp; study materials</h2><p>Build skills and strengthen your applications.</p></div><a class="link-arrow" href="/materials/">View all <svg class="ic"><use href="#i-arrow"/></svg></a></div>
     <div class="grid">{%- for m in collections.materials | limit(3) %}{{ materialCard(m) }}{% endfor %}</div>
   </div>
 </section>

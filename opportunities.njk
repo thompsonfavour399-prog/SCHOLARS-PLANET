@@ -5,7 +5,7 @@ description: Browse verified scholarships, grants, fellowships, competitions, sk
 permalink: /opportunities/
 bodyClass: page-listing
 ---
-{% from "macros.njk" import card %}
+{% from "macros.njk" import card, adSlot %}
 <section class="page-hero">
   <div class="wrap">
     <h1>Opportunities</h1>
@@ -47,6 +47,8 @@ bodyClass: page-listing
         </div>
       </div>
     </div>
+
+    {{ adSlot(ads, "listing_top") }}
 
     <p class="result-count" id="result-count" aria-live="polite"></p>
     <div class="grid" id="grid">

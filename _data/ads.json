@@ -1,0 +1,54 @@
+{
+  "adsensePublisherId": "",
+  "slots": {
+    "home_top": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    },
+    "home_middle": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    },
+    "listing_top": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    },
+    "post_top": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    },
+    "post_bottom": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    },
+    "post_side": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    },
+    "footer_top": {
+      "type": "Off",
+      "sponsor": "",
+      "image": "",
+      "link": "",
+      "code": ""
+    }
+  }
+}

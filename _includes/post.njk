@@ -2,6 +2,7 @@
 layout: base.njk
 bodyClass: page-post
 ---
+{% from "macros.njk" import adSlot %}
 {%- set levels = level | asArray -%}
 {%- set dl = deadline | ymd -%}
 {%- set shareUrl = site.url ~ page.url -%}
@@ -34,9 +35,13 @@ bodyClass: page-post
       {%- endif %}
     {%- endif %}
 
+    {{ adSlot(ads, "post_top") }}
+
     <div class="prose">
       {{ content | safe }}
     </div>
+
+    {{ adSlot(ads, "post_bottom") }}
 
     {%- if link %}
     <div class="apply-box">
@@ -72,6 +77,8 @@ bodyClass: page-post
       {%- if link %}<a class="btn btn-block" href="{{ link }}" target="_blank" rel="noopener">Apply now</a>{% endif %}
       <button class="btn btn-ghost btn-block save-wide" type="button" data-save="{{ saveSlug }}" aria-pressed="false"><svg class="ic"><use href="#i-bookmark"/></svg> <span class="js-save-label">Save for later</span></button>
     </div>
+
+    {{ adSlot(ads, "post_side") }}
 
     <div class="side-card join-card">
       <h3>Never miss a deadline</h3>

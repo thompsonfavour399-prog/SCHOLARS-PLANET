@@ -1,0 +1,116 @@
+{
+  "materials": [
+    {
+      "title": "Coursera",
+      "type": "Learning platform",
+      "order": 10,
+      "cost": "Free to start",
+      "description": "Online courses from leading universities and companies. Many courses can be audited for free, and financial aid is available for certificates.",
+      "link": "https://www.coursera.org"
+    },
+    {
+      "title": "Alison",
+      "type": "Learning platform",
+      "order": 20,
+      "cost": "Free to start",
+      "description": "Free online courses in business, technology, health, languages and more. Certificates and diplomas may carry a fee.",
+      "link": "https://alison.com"
+    },
+    {
+      "title": "Saylor Academy",
+      "type": "Learning platform",
+      "order": 30,
+      "cost": "Free",
+      "description": "Free, self-paced college-level courses with free certificates of completion.",
+      "link": "https://www.saylor.org"
+    },
+    {
+      "title": "The Open University (OpenLearn)",
+      "type": "Learning platform",
+      "order": 40,
+      "cost": "Free",
+      "description": "Free short courses and study resources from the UK's Open University, with free statements of participation.",
+      "link": "https://www.open.edu/openlearn/"
+    },
+    {
+      "title": "OpenWHO (World Health Organization)",
+      "type": "Learning platform",
+      "order": 50,
+      "cost": "Free",
+      "description": "Free online courses from the World Health Organization on public health and health emergencies, useful for health and medical students.",
+      "link": "https://openwho.org"
+    },
+    {
+      "title": "Digital Training Academy (Federal Ministry of Education)",
+      "type": "Learning platform",
+      "order": 5,
+      "cost": "Free",
+      "description": "A Federal Government programme, with Coursera and Pluralsight, offering free learning licences in skills such as cloud computing, cybersecurity, AI and machine learning, product management and fintech. Places are limited (32,000 licences), and you register with your NIN and phone number.",
+      "link": "https://dta.education.gov.ng/"
+    },
+    {
+      "title": "Aspire Leaders Program",
+      "type": "Learning platform",
+      "order": 6,
+      "cost": "Free",
+      "description": "A free six-week online leadership programme founded at Harvard, for university students and graduates aged 18 to 29 who are first-generation or from limited-income backgrounds. Cohort 4 runs from 21 October to 30 November 2026 and applications are open. A free certificate is included, and a verifiable e-credential bundle is optional at $5.",
+      "link": "https://www.aspireleaders.org/program/aspire-leaders-program/"
+    },
+    {
+      "title": "UNICEF Agora",
+      "type": "Learning platform",
+      "order": 25,
+      "cost": "Free",
+      "description": "UNICEF's global learning hub. Registration is free and gives access to courses on child protection, education, nutrition, WASH and professional skills, with certificates and digital badges where available.",
+      "link": "https://agora.unicef.org/"
+    },
+    {
+      "title": "MTN Skills Academy Plus",
+      "type": "Learning platform",
+      "order": 60,
+      "cost": "Paid",
+      "description": "Paid: ₦200 gives a month of access for MTN customers, and courses are charged separately (from ₦3,000). An AI-powered career platform with courses in leadership, finance, data analytics, AI and creative arts.",
+      "link": "https://www.mtn.ng/mtn-skills-academy-plus/"
+    },
+    {
+      "title": "WHO Academy",
+      "type": "Learning platform",
+      "order": 55,
+      "cost": "Varies",
+      "description": "The World Health Organization's learning platform, where health professionals build the skills and knowledge to improve health outcomes. Check the site for current courses and any costs.",
+      "link": "https://whoacademy.org/"
+    },
+    {
+      "title": "LEAP Africa",
+      "type": "Learning platform",
+      "order": 65,
+      "cost": "Varies",
+      "description": "A youth leadership development organisation with e-learning courses, leadership programmes for students and young professionals, and articles, reports and podcasts. Check each programme for its cost and eligibility.",
+      "link": "https://leapafrica.org/"
+    },
+    {
+      "title": "The Fort Institute",
+      "type": "Learning platform",
+      "order": 70,
+      "cost": "Varies",
+      "description": "Learning programmes from The Fort Institute. Visit the site to see current courses, who can join and any costs.",
+      "link": "https://thefortinstitute.org/en"
+    },
+    {
+      "title": "How to Write an Academic CV",
+      "type": "Guide & template",
+      "order": 80,
+      "cost": "Free",
+      "description": "A shared folder of guidance and examples to help you write an academic CV.",
+      "link": "https://drive.google.com/drive/folders/1jZcjIk5DPM1IkrpySKAHJKvqy11XhiDJ"
+    },
+    {
+      "title": "How to Write a Personal Statement",
+      "type": "Guide & template",
+      "order": 81,
+      "cost": "Free",
+      "description": "A shared folder of guidance and examples to help you write a personal statement.",
+      "link": "https://drive.google.com/drive/folders/1jZcjIk5DPM1IkrpySKAHJKvqy11XhiDJ"
+    }
+  ]
+}

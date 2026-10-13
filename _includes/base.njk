@@ -1,4 +1,4 @@
-<!doctype html>
+{% from "macros.njk" import adSlot %}<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/style.css">
+{% if ads and ads.adsensePublisherId %}<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ ads.adsensePublisherId }}" crossorigin="anonymous"></script>{% endif %}
 </head>
 <body class="{{ bodyClass }}">
 
@@ -82,6 +83,7 @@
 {{ content | safe }}
 </main>
 
+{% set fadSlot = adSlot(ads, 'footer_top') %}{% if fadSlot | trim %}<div class="wrap">{{ fadSlot | safe }}</div>{% endif %}
 <footer class="footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
