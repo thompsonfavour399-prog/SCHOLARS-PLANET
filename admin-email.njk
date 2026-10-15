@@ -1,0 +1,171 @@
+---
+layout: base.njk
+title: Email summary | Scholars Planet admin
+permalink: /admin/email/
+noindex: true
+bodyClass: page-listing
+eleventyExcludeFromCollections: true
+---
+<section class="page-hero">
+  <div class="wrap">
+    <h1>Email summary</h1>
+    <p>Build a ready-to-send email of opportunities, then paste it into an EmailOctopus campaign. It always uses today's open opportunities.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap narrow">
+    <script type="application/json" id="em-data">[{% for p in collections.opportunities %}{"title":{{ p.data.title | jsonify | safe }},"url":{{ p.url | jsonify | safe }},"category":{{ p.data.category | jsonify | safe }},"deadline":{{ (p.data.deadline | ymd) | jsonify | safe }},"posted":{{ (p.date | ymd) | jsonify | safe }},"summary":{{ p.data.summary | jsonify | safe }}}{% if not loop.last %},{% endif %}{% endfor %}]</script>
+    <script type="application/json" id="em-site">{{ { url: site.url, whatsapp: site.whatsapp } | jsonify | safe }}</script>
+
+    <div class="toolbar">
+      <div class="filter-group"><span class="filter-label">Include</span>
+        <select id="em-mode">
+          <option value="new">New in the last 7 days</option>
+          <option value="soon">Closing in the next 7 days</option>
+          <option value="open">All open now</option>
+        </select>
+      </div>
+      <div class="filter-group"><span class="filter-label">Category</span>
+        <select id="em-cat"><option value="all">All categories</option></select>
+      </div>
+      <div class="filter-group"><span class="filter-label">Summary</span>
+        <label><input type="checkbox" id="em-sum" checked> Add a short summary under each opportunity</label>
+      </div>
+    </div>
+
+    <p class="result-count" id="em-count" aria-live="polite"></p>
+
+    <div class="wa-group">
+      <div class="wa-group-head"><h3>1. Subject line</h3><button class="btn btn-ghost btn-sm" type="button" id="em-copy-subject">Copy subject</button></div>
+      <pre id="em-subject"></pre>
+    </div>
+    <div class="wa-group">
+      <div class="wa-group-head"><h3>2. Email text</h3>
+        <span><button class="btn btn-sm" type="button" id="em-copy-html">Copy with links</button> <button class="btn btn-ghost btn-sm" type="button" id="em-copy-text">Copy plain text</button></span>
+      </div>
+      <div id="em-preview" class="prose" style="padding:16px 18px"></div>
+    </div>
+    <p class="wa-status" id="em-status" aria-live="polite"></p>
+    <p class="note">In EmailOctopus: Campaigns, Create campaign, choose your list, paste the subject, then paste the text into the email. "Copy with links" keeps the links clickable. If the paste looks wrong, use "Copy plain text". This page is not linked anywhere on the public site.</p>
+    <a class="btn btn-ghost" href="/admin/">Back to admin</a>
+  </div>
+</section>
+{% raw %}
+<script>
+(function () {
+  var items = JSON.parse(document.getElementById('em-data').textContent);
+  var site = JSON.parse(document.getElementById('em-site').textContent);
+  var modeEl = document.getElementById('em-mode'), catEl = document.getElementById('em-cat'), sumEl = document.getElementById('em-sum');
+  var subjEl = document.getElementById('em-subject'), prevEl = document.getElementById('em-preview'), countEl = document.getElementById('em-count'), statusEl = document.getElementById('em-status');
+  var current = { subject: '', text: '', html: '' };
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function todayYMD() {
+    try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Lagos', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); }
+    catch (e) { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  }
+  function utc(y) { return Date.UTC(+y.slice(0, 4), +y.slice(5, 7) - 1, +y.slice(8, 10)); }
+  function diff(a, b) { return Math.round((utc(b) - utc(a)) / 86400000); }
+  function longDate(y) {
+    try { return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(utc(y))); }
+    catch (e) { return y; }
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
+  }
+  function clip(s, n) {
+    s = String(s || '').trim();
+    if (s.length <= n) return s;
+    var cut = s.slice(0, n), i = cut.lastIndexOf(' ');
+    return (i > 60 ? cut.slice(0, i) : cut).replace(/[.,;:]$/, '') + '...';
+  }
+
+  var today = todayYMD();
+  var cats = [];
+  items.forEach(function (i) { if (i.category && cats.indexOf(i.category) === -1) cats.push(i.category); });
+  cats.forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; catEl.appendChild(o); });
+
+  function pick(mode, cat) {
+    return items.filter(function (i) {
+      if (i.deadline && i.deadline < today) return false;
+      if (cat !== 'all' && i.category !== cat) return false;
+      if (mode === 'soon') return !!i.deadline && diff(today, i.deadline) <= 7;
+      if (mode === 'new') { if (!i.posted) return false; var d = diff(i.posted, today); return d >= 0 && d <= 7; }
+      return true;
+    }).sort(function (a, b) {
+      if (a.deadline && b.deadline) return a.deadline < b.deadline ? -1 : a.deadline > b.deadline ? 1 : 0;
+      if (a.deadline) return -1;
+      if (b.deadline) return 1;
+      return 0;
+    });
+  }
+
+  function build() {
+    var mode = modeEl.value, withSum = sumEl.checked;
+    var list = pick(mode, catEl.value).slice(0, 20), n = list.length;
+    var intro = mode === 'new' ? 'Here are the new opportunities we shared on Scholars Planet this week, with the nearest deadlines first.'
+      : mode === 'soon' ? 'These opportunities close within the next 7 days. Apply before it is too late.'
+      : 'Here are the opportunities open on Scholars Planet right now, with the nearest deadlines first.';
+    var subject = mode === 'new' ? n + (n === 1 ? ' new opportunity' : ' new opportunities') + ' on Scholars Planet'
+      : mode === 'soon' ? 'Closing soon: ' + n + (n === 1 ? ' opportunity' : ' opportunities') + ' with deadlines this week'
+      : 'Open now: ' + n + (n === 1 ? ' opportunity' : ' opportunities') + ' on Scholars Planet';
+    countEl.textContent = n + (n === 1 ? ' opportunity selected' : ' opportunities selected') + (n === 20 ? ' (the email shows the first 20)' : '');
+    if (!n) {
+      current = { subject: '', text: '', html: '' };
+      subjEl.textContent = '';
+      prevEl.innerHTML = '<p>Nothing matches these choices right now. Try "All open now".</p>';
+      return;
+    }
+    var textParts = [], htmlParts = [];
+    list.forEach(function (i, k) {
+      var link = site.url + i.url, dl = i.deadline ? longDate(i.deadline) : 'No fixed deadline';
+      var sum = withSum ? clip(i.summary, 170) : '';
+      textParts.push((k + 1) + '. ' + i.title + '\nDeadline: ' + dl + (sum ? '\n' + sum : '') + '\nDetails and how to apply: ' + link);
+      htmlParts.push('<p><strong>' + (k + 1) + '. <a href="' + esc(link) + '">' + esc(i.title) + '</a></strong><br>Deadline: ' + esc(dl) + (sum ? '<br>' + esc(sum) : '') + '<br><a href="' + esc(link) + '">Details and how to apply</a></p>');
+    });
+    var text = 'Hello,\n\n' + intro + '\n\n' + textParts.join('\n\n') +
+      '\n\nSee all opportunities: ' + site.url + '/opportunities/' +
+      '\n\nJoin our WhatsApp channel to hear about new opportunities first:\n' + site.whatsapp +
+      '\n\nScholars Planet\nOpening doors to endless possibilities.';
+    var html = '<p>Hello,</p><p>' + esc(intro) + '</p>' + htmlParts.join('') +
+      '<p><a href="' + esc(site.url) + '/opportunities/">See all opportunities</a></p>' +
+      '<p>Join our <a href="' + esc(site.whatsapp) + '">WhatsApp channel</a> to hear about new opportunities first.</p>' +
+      '<p>Scholars Planet<br>Opening doors to endless possibilities.</p>';
+    current = { subject: subject, text: text, html: html };
+    subjEl.textContent = subject;
+    prevEl.innerHTML = html;
+  }
+
+  function flash(msg) { statusEl.textContent = msg; setTimeout(function () { statusEl.textContent = ''; }, 2600); }
+  function copyPlain(text, done) {
+    function fb() {
+      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); done();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fb); else fb();
+  }
+  function selectCopy(done) {
+    var r = document.createRange(); r.selectNodeContents(prevEl);
+    var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    try { document.execCommand('copy'); } catch (e) {}
+    s.removeAllRanges(); done();
+  }
+  document.getElementById('em-copy-subject').onclick = function () { if (current.subject) copyPlain(current.subject, function () { flash('Subject copied'); }); };
+  document.getElementById('em-copy-text').onclick = function () { if (current.text) copyPlain(current.text, function () { flash('Plain text copied'); }); };
+  document.getElementById('em-copy-html').onclick = function () {
+    if (!current.html) return;
+    var done = function () { flash('Copied with links'); };
+    try {
+      if (navigator.clipboard && window.ClipboardItem) {
+        var item = new ClipboardItem({ 'text/html': new Blob([current.html], { type: 'text/html' }), 'text/plain': new Blob([current.text], { type: 'text/plain' }) });
+        navigator.clipboard.write([item]).then(done, function () { selectCopy(done); });
+        return;
+      }
+    } catch (e) {}
+    selectCopy(done);
+  };
+  [modeEl, catEl, sumEl].forEach(function (el) { el.addEventListener('change', build); });
+  build();
+})();
+</script>
+{% endraw %}
