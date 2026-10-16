@@ -125,7 +125,21 @@
   <div class="wrap footer-bottom">&copy; {{ currentYear }} Scholars Planet. All rights reserved.</div>
 </footer>
 
-<script src="/assets/js/app.js" defer></script>
+{% if not noindex %}
+<a class="float-wa" href="{{ site.whatsapp }}" target="_blank" rel="noopener" aria-label="Join our WhatsApp channel and get notified instantly whenever a new opportunity is out" title="Get notified instantly whenever a new opportunity is out">
+  <span class="float-wa-icon"><svg class="ic"><use href="#i-wa"/></svg></span>
+  <span class="float-wa-text">Get instant scholarship alerts</span>
+</a>
+<style>
+.float-wa{position:fixed;right:16px;bottom:calc(78px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;padding:8px 18px 8px 8px;border-radius:999px;background:#16A34A;color:#fff;font:700 .95rem/1 'Inter',system-ui,sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.28);text-decoration:none;animation:floatwa-pulse 2.6s ease-in-out infinite}
+.float-wa:hover{background:#15803D}
+.float-wa-icon{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center}
+.float-wa-icon .ic{width:24px;height:24px}
+@keyframes floatwa-pulse{0%,100%{box-shadow:0 10px 28px rgba(0,0,0,.28),0 0 0 0 rgba(22,163,74,.55)}50%{box-shadow:0 10px 28px rgba(0,0,0,.28),0 0 0 12px rgba(22,163,74,0)}}
+@media (prefers-reduced-motion:reduce){.float-wa{animation:none}}
+@media print{.float-wa{display:none}}
+</style>
+{% endif %}<script src="/assets/js/app.js" defer></script>
 <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 <script>
 if (window.netlifyIdentity) {
