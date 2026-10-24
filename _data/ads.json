@@ -4,7 +4,7 @@
     "home_top": {
       "type": "Sponsor banner",
       "sponsor": "Get Soft copies of Your NIN ID cards at the comfort of your home from any part of the Country.s. Also, Get both hard copies and soft copies if you reside in Akwa Ibom State, Nigeria.",
-      "image": "/assets/uploads/green-and-white-professional-employee-id-card_20250524_144243_0000.png",
+      "image": "/assets/uploads/flex-4×3-ft-–-no-location-2x.png",
       "link": "https://wa.me/+2348022809982",
       "code": ""
     },
@@ -25,22 +25,22 @@
     "post_top": {
       "type": "Sponsor banner",
       "sponsor": "Get Soft copies of Your NIN ID cards at the comfort of your home from any part of the Country.s. Also, Get both hard copies and soft copies if you reside in Akwa Ibom State, Nigeria.",
-      "image": "/assets/uploads/green-and-white-professional-employee-id-card_20250524_144243_0000.png",
+      "image": "/assets/uploads/flex-4×3-ft-–-no-location-2x.png",
       "link": "https://wa.me/+2348022809982",
       "code": ""
     },
     "post_bottom": {
-      "type": "Sponsor banner",
+      "type": "Off",
       "sponsor": "Get Soft copies of Your NIN ID cards at the comfort of your home from any part of the Country.s. Also, Get both hard copies and soft copies if you reside in Akwa Ibom State, Nigeria.",
       "image": "/assets/uploads/green-and-white-professional-employee-id-card_20250524_144243_0000.png",
       "link": "https://wa.me/+2348022809982",
       "code": ""
     },
     "post_side": {
-      "type": "Off",
+      "type": "Sponsor banner",
       "sponsor": "",
-      "image": "",
-      "link": "",
+      "image": "/assets/uploads/flex-4×3-ft-–-no-location-2x.png",
+      "link": "https://wa.me/+2348022809982",
       "code": ""
     },
     "footer_top": {
