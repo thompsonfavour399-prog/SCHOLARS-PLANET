@@ -43,10 +43,24 @@ function slugify(str) {
   return String(str || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 90);
 }
+/* ---------- older opportunities kept in content/archive/*.json (edited in /admin -> Opportunities archive) ---------- */
+function archivePosts() {
+  const dir = path.join(__dirname, "content", "archive");
+  let out = [];
+  try {
+    fs.readdirSync(dir).filter((f) => f.endsWith(".json")).sort().forEach((f) => {
+      try {
+        const raw = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
+        if (Array.isArray(raw.posts)) out = out.concat(raw.posts);
+      } catch (e) {}
+    });
+  } catch (e) {}
+  return out;
+}
 function batchItems() {
   let raw = {};
   try { raw = JSON.parse(fs.readFileSync(path.join(__dirname, "_data", "batch.json"), "utf8")); } catch (e) { raw = {}; }
-  const posts = Array.isArray(raw.posts) ? raw.posts : [];
+  const posts = (Array.isArray(raw.posts) ? raw.posts : []).concat(archivePosts());
   const used = new Set();
   try {
     fs.readdirSync(path.join(__dirname, "content", "opportunities"))
