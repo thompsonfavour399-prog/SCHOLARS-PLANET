@@ -11,8 +11,8 @@ collections:
   # OPPORTUNITIES: MANY AT ONCE. One Save = one deploy.
   # ---------------------------------------------------------------
   - name: "batch"
-    label: "Opportunities (many at once)"
-    description: "Add or edit many opportunities, then press Save once. For the WhatsApp-ready list of open opportunities, go to scholarsplanet.com.ng/admin/list/"
+    label: "Opportunities: new posts (many at once)"
+    description: "Add your NEW opportunities here, then press Save once. Older ones live in Opportunities archive. For the WhatsApp-ready list, go to scholarsplanet.com.ng/admin/list/"
     format: "json"
     files:
       - label: "All opportunities: add or edit many, then Save once"
@@ -45,6 +45,44 @@ collections:
               - { label: "Short summary (shown on the cards)", name: "summary", widget: "text" }
               - { label: "Official application link", name: "link", widget: "string", required: false }
               - { label: "Full details", name: "body", widget: "markdown" }
+
+  # ---------------------------------------------------------------
+  # OPPORTUNITIES ARCHIVE: older posts. Open one file at a time.
+  # ---------------------------------------------------------------
+  - name: "archive"
+    label: "Opportunities archive (older posts)"
+    description: "Older opportunities, kept here so the new-posts form stays fast. Open one file, edit, then press Save once."
+    folder: "content/archive"
+    extension: "json"
+    format: "json"
+    create: false
+    summary: "{{filename}}"
+    fields:
+      - label: "Opportunities in this file"
+        name: "posts"
+        widget: "list"
+        label_singular: "Opportunity"
+        summary: "{{fields.title}} ({{fields.category}})"
+        collapsed: true
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Web address name (do not change it, so the link stays the same)", name: "slug", widget: "string", required: false }
+          - label: "Category"
+            name: "category"
+            widget: "select"
+            options: ["Scholarship", "Grant", "Fellowship", "Competition", "Skills", "Internship"]
+          - label: "Education level (pick every level that can apply)"
+            name: "level"
+            widget: "select"
+            multiple: true
+            min: 1
+            options: ["Undergraduate", "Postgraduate", "High School"]
+            default: ["Undergraduate"]
+          - { label: "Date posted", name: "date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+          - { label: "Application deadline (leave empty if there is no fixed deadline)", name: "deadline", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD", required: false }
+          - { label: "Short summary (shown on the cards)", name: "summary", widget: "text" }
+          - { label: "Official application link", name: "link", widget: "string", required: false }
+          - { label: "Full details", name: "body", widget: "markdown" }
 
   # ---------------------------------------------------------------
   # OPPORTUNITIES: ONE AT A TIME
